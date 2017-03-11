@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My React App</title>
+  </head>
+  <body>
+    <ul class="nav navbar-nav">
+			<% for(var i = 0; i < nav.length; i++) {%>
+        <li><a href="<%=nav[i].Link%>"><%=nav[i].Text%></a></li>
+      <%}%>
+    </ul>
+    <div id="mount">
+      <h1><%-JSON.stringify(post.attributes.title).replace(/\"/g, "")%></h1>
+      <%-body%>
+    </div>
+
+    <!-- <script src="./public/index_bundled.js"</script> -->
+  </body>
+</html>

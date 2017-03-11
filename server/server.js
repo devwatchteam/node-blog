@@ -3,10 +3,10 @@ import morgan from 'morgan';
 import compression from 'compression';
 import fs from 'fs';
 import fm from 'front-matter';
-import markdown from 'markdown';
+import {markdown as md} from 'markdown';
 import post from './postfetch';
+import async from 'async';
 
-const md = markdown.markdown;
 //set up express server
 const app = express();
 //find out node environment
@@ -17,11 +17,11 @@ const ROOT_DIR = __dirname.replace('/server', '');
 const port = process.env.PORT || 3000;
 //define navigation
 const nav = [{
-  Link:'/Books',
-  Text: 'Books'
+  Link:'/javascript',
+  Text: 'JavaScript'
 }, {
-  Link:'/Authors',
-  Text: 'Authors'
+  Link:'/pwa',
+  Text: 'PWA'
 }];
 
 
@@ -45,26 +45,90 @@ app.set('view engine', 'ejs');
 // --     routes      --
 // ---------------------
 
-app.get('/:post', (req, res) => {
+//create list from post directory
+app.get('/', (req, res) => {
+  fs.readdir(`./src/post/`, (err, items) => {
+    if (err) throw err;
+    const list = [];
+    const read = (index) => {
+      //if all read then render the list of post
+      if(index === items.length) {
+        console.log("Done reading files");
+        res.render('index', {
+            title: "sup dunny",
+            nav: nav,
+            list: list
+        });
+      } else {
+        //get yaml front matter from each post file
+        fs.readFile(`./src/post/${items[index]}`, 'utf8', (err, data) => {
+          if (err) throw err;
+          const content = fm(data);
+          const postData = content.attributes;
+          console.log(postData);
+          list.push(postData);
+          read(index + 1);
+        });
+      }
+    };
+    read(0);
+  });
+});
 
+//create list from tags
+app.get('/:tag', (req, res) => {
+  fs.readdir(`./src/post/`, (err, items) => {
+    if (err) throw err;
+    const list = [];
+    const read = (index) => {
+      //if all read then render the list of post
+      if(index === items.length) {
+        console.log("Done reading files");
+        list.filter
+        res.render('index', {
+            title: "sup dunny",
+            nav: nav,
+            list: list
+        });
+      } else {
+        //get yaml front matter from each post file
+        fs.readFile(`./src/post/${items[index]}`, 'utf8', (err, data) => {
+          if (err) throw err;
+          const content = fm(data);
+          const postData = content.attributes;
+          const postTags = postData.tags
+          if(postTags.includes(req.params.tag)){
+            console.log('POST TAGS:', postTags);
+            list.push(postData);
+          }
+
+          read(index + 1);
+        });
+      }
+    };
+    read(0);
+  });
+});
+
+//render single post
+app.get('/:post', (req, res) => {
+  //get yaml front matter and body of post
   fs.readFile(`./src/post/${req.params.post}.md`, 'utf8', (err, data) => {
-    if (err) throw err
+    if (err) throw err;
     const content = fm(data);
     const body = md.toHTML(content.body);
     console.log(content.frontmatter);
-    return res.render('index', {
+    //once read render single post
+    res.render('post', {
         title: "sup dunny",
         nav: nav,
         post: content,
         body: body
     });
   });
-
 });
 
-app.get('/post', (req, res) => {
-  res.send(post('webpack2-migration'));
-});
+
 
 //have express listen for request
 const server = app.listen(port, () => {
