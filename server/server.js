@@ -54,8 +54,19 @@ app.get('/', (req, res) => {
       //if all read then render the list of post
       if(index === items.length) {
         console.log("Done reading files");
+        //sort from newest to oldest
+        list.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          if ( dateA < dateB)
+            return 1;
+          if (dateA > dateB)
+            return -1;
+          return 0;
+        });
+        console.log("SORTED!!", list);
+        //render list
         res.render('index', {
-            title: "sup dunny",
             nav: nav,
             list: list
         });
@@ -84,7 +95,15 @@ app.get('/:tag', (req, res) => {
       //if all read then render the list of post
       if(index === items.length) {
         console.log("Done reading files");
-        list.filter
+        list.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          if ( dateA < dateB)
+            return 1;
+          if (dateA > dateB)
+            return -1;
+          return 0;
+        });
         res.render('index', {
             title: "sup dunny",
             nav: nav,
