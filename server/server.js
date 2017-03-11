@@ -4,8 +4,8 @@ import compression from 'compression';
 import fs from 'fs';
 import fm from 'front-matter';
 import {markdown as md} from 'markdown';
-import post from './postfetch';
 import async from 'async';
+import path from 'path';
 
 //set up express server
 const app = express();
@@ -28,11 +28,11 @@ const nav = [{
 // ---------------------
 // -- some middleware --
 // ---------------------
-
+//serve static files
+app.use(express.static(__dirname + '/public'));
 //check if we are in dev or prod
 (NODE_ENV === 'development') ? app.use(morgan('dev')) : app.use(compression());
-//serve static files
-app.use(express.static(__dirname + 'public'));
+
 
 // ---------------------
 // --   templating    --
@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
           if (err) throw err;
           const content = fm(data);
           const postData = content.attributes;
-          console.log(postData);
+          postData.filename = items[index];
           list.push(postData);
           read(index + 1);
         });
@@ -96,6 +96,7 @@ app.get('/:tag', (req, res) => {
           if (err) throw err;
           const content = fm(data);
           const postData = content.attributes;
+          postData.filename = items[index];
           const postTags = postData.tags
           if(postTags.includes(req.params.tag)){
             console.log('POST TAGS:', postTags);
@@ -111,9 +112,9 @@ app.get('/:tag', (req, res) => {
 });
 
 //render single post
-app.get('/:post', (req, res) => {
+app.get('/post/:post', (req, res) => {
   //get yaml front matter and body of post
-  fs.readFile(`./src/post/${req.params.post}.md`, 'utf8', (err, data) => {
+  fs.readFile(`./src/post/${req.params.post}`, 'utf8', (err, data) => {
     if (err) throw err;
     const content = fm(data);
     const body = md.toHTML(content.body);
@@ -128,7 +129,8 @@ app.get('/:post', (req, res) => {
   });
 });
 
-
+app.use(express.static(ROOT_DIR + '/src'));
+app.use(express.static(__dirname + '/src'));
 
 //have express listen for request
 const server = app.listen(port, () => {

@@ -11,6 +11,7 @@
     </ul>
     <div id="mount">
       <h1><%-JSON.stringify(post.attributes.title).replace(/\"/g, "")%></h1>
+      <a href="twitter.com/<%-JSON.stringify(post.attributes.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.attributes.author).replace(/\"/g, "")%></a>
       <%-body%>
     </div>
 

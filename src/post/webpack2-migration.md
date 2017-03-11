@@ -1,13 +1,11 @@
 ---
 title: Migrating your Webpack config to Webpack V2
 description: Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade.
+author: "@Dave_Conner"
 tags: [javascript, pwa]
 date: March 10, 2017
 ---
 
-
-
-#Webpack v2
 
 ## resources:
 

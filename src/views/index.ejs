@@ -2,15 +2,15 @@
 <html>
   <head>
     <title>My React App</title>
+    <link rel="stylesheet" href="/sass/main.css"/>
   </head>
   <body>
     <%- include partials/header.ejs %>
     <div id="mount">
-      <h1>Post List</h1>
       <ul class="nav navbar-nav">
   			<% for(var i = 0; i < list.length; i++) {%>
           <li>
-            <a href="<%=nav[i].Link%>">
+            <a href="post/<%=list[i].filename%>">
               <date><%=list[i].date.replace(/\"/g, "")%></date>
               <h2><%=list[i].title.replace(/\"/g, "")%></h2>
               <p><%=list[i].description.replace(/\"/g, "")%></p>
