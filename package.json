@@ -4,7 +4,11 @@
   "description": "A Jekyll replacement",
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV='development' nodemon ./server/server.js --exec babel-node --inspect"
+    "start:dev": "npm run serve:dev & npm run watch",
+    "serve:dev": "NODE_ENV='development' nodemon ./server/server.js --exec babel-node --inspect",
+    "sass": "node-sass --source-map true --output-style compressed ./src/sass/ -o ./public/css/",
+    "post": "postcss ./public/css/main.css -u autoprefixer -m -o ./public/css/main.css",
+    "watch": "nodemon -e scss -x 'npm run sass && npm run post'"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",
   "author": "David Conner",
@@ -29,6 +33,8 @@
     "eslint-plugin-babel": "^4.1.1",
     "morgan": "^1.8.1",
     "node-sass": "^4.5.0",
+    "postcss": "^5.2.16",
+    "postcss-cli": "^3.0.0-beta",
     "stylelint": "^7.9.0"
   }
 }

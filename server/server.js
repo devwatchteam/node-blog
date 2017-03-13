@@ -29,6 +29,7 @@ const nav = [{
 // -- some middleware --
 // ---------------------
 //serve static files
+app.use(express.static(ROOT_DIR + '/public'));
 app.use(express.static(__dirname + '/public'));
 //check if we are in dev or prod
 (NODE_ENV === 'development') ? app.use(morgan('dev')) : app.use(compression());
@@ -58,11 +59,7 @@ app.get('/', (req, res) => {
         list.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
-          if ( dateA < dateB)
-            return 1;
-          if (dateA > dateB)
-            return -1;
-          return 0;
+          return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
         });
         console.log("SORTED!!", list);
         //render list
@@ -98,11 +95,7 @@ app.get('/:tag', (req, res) => {
         list.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
-          if ( dateA < dateB)
-            return 1;
-          if (dateA > dateB)
-            return -1;
-          return 0;
+          return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
         });
         res.render('index', {
             title: "sup dunny",
@@ -147,9 +140,6 @@ app.get('/post/:post', (req, res) => {
     });
   });
 });
-
-app.use(express.static(ROOT_DIR + '/src'));
-app.use(express.static(__dirname + '/src'));
 
 //have express listen for request
 const server = app.listen(port, () => {
