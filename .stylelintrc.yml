@@ -33,7 +33,6 @@ rules:
   selector-type-case: lower
   #selector list
   selector-list-comma-newline-after: always
-  selector-list-comma-space-after: always
   #blocks
   block-closing-brace-empty-line-before: never
   block-closing-brace-newline-after: always

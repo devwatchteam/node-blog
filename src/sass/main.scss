@@ -1,0 +1,33 @@
+:root {
+  font-size: calc(calc(1em) * 1vw);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+.site {
+  &-header {
+    display: flex;
+    padding: 0 2rem;
+  }
+
+  &-nav {
+    margin: auto 0 auto auto;
+  }
+
+  &-nav-list {
+    list-style: none;
+  }
+
+  &-nav-list-item {
+    display: inline-block;
+  }
+
+  &-nav-list-item:not(:last-child) {
+    margin-right: 1.5em;
+  }
+}
