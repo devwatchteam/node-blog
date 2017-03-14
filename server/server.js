@@ -1,11 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import compression from 'compression';
-import fs from 'fs';
-import fm from 'front-matter';
-import {markdown as md} from 'markdown';
-import async from 'async';
 import path from 'path';
+import postRoutes from './routes/post-routes';
 
 //set up express server
 const app = express();
@@ -16,24 +13,16 @@ const ROOT_DIR = __dirname.replace('/server', '');
 //check port
 const port = process.env.PORT || 3000;
 //define navigation
-const nav = [{
-  Link:'/javascript',
-  Text: 'JavaScript'
-}, {
-  Link:'/pwa',
-  Text: 'PWA'
-}];
-
 
 // ---------------------
 // -- some middleware --
 // ---------------------
+
 //serve static files
 app.use(express.static(ROOT_DIR + '/public'));
 app.use(express.static(__dirname + '/public'));
 //check if we are in dev or prod
 (NODE_ENV === 'development') ? app.use(morgan('dev')) : app.use(compression());
-
 
 // ---------------------
 // --   templating    --
@@ -46,100 +35,7 @@ app.set('view engine', 'ejs');
 // --     routes      --
 // ---------------------
 
-//create list from post directory
-app.get('/', (req, res) => {
-  fs.readdir(`./src/post/`, (err, items) => {
-    if (err) throw err;
-    const list = [];
-    const read = (index) => {
-      //if all read then render the list of post
-      if(index === items.length) {
-        console.log("Done reading files");
-        //sort from newest to oldest
-        list.sort((a, b) => {
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
-          return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
-        });
-        console.log("SORTED!!", list);
-        //render list
-        res.render('index', {
-            nav: nav,
-            list: list
-        });
-      } else {
-        //get yaml front matter from each post file
-        fs.readFile(`./src/post/${items[index]}`, 'utf8', (err, data) => {
-          if (err) throw err;
-          const content = fm(data);
-          const postData = content.attributes;
-          postData.filename = items[index];
-          list.push(postData);
-          read(index + 1);
-        });
-      }
-    };
-    read(0);
-  });
-});
-
-//create list from tags
-app.get('/:tag', (req, res) => {
-  fs.readdir(`./src/post/`, (err, items) => {
-    if (err) throw err;
-    const list = [];
-    const read = (index) => {
-      //if all read then render the list of post
-      if(index === items.length) {
-        console.log("Done reading files");
-        list.sort((a, b) => {
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
-          return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
-        });
-        res.render('index', {
-            title: "sup dunny",
-            nav: nav,
-            list: list
-        });
-      } else {
-        //get yaml front matter from each post file
-        fs.readFile(`./src/post/${items[index]}`, 'utf8', (err, data) => {
-          if (err) throw err;
-          const content = fm(data);
-          const postData = content.attributes;
-          postData.filename = items[index];
-          const postTags = postData.tags
-          if(postTags.includes(req.params.tag)){
-            console.log('POST TAGS:', postTags);
-            list.push(postData);
-          }
-
-          read(index + 1);
-        });
-      }
-    };
-    read(0);
-  });
-});
-
-//render single post
-app.get('/post/:post', (req, res) => {
-  //get yaml front matter and body of post
-  fs.readFile(`./src/post/${req.params.post}`, 'utf8', (err, data) => {
-    if (err) throw err;
-    const content = fm(data);
-    const body = md.toHTML(content.body);
-    console.log(content.frontmatter);
-    //once read render single post
-    res.render('post', {
-        title: "sup dunny",
-        nav: nav,
-        post: content,
-        body: body
-    });
-  });
-});
+app.use('/', postRoutes);
 
 //have express listen for request
 const server = app.listen(port, () => {

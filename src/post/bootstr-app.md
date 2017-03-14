@@ -2,7 +2,7 @@
 title:  "BootstrApp!"
 description: BootstrApp is a collection of best practices and helper functions that will help make your mobile application feel native and save you time in development.
 author: "@Dave_Conner"
-tags: [pwa] 
+tags: [pwa, css, sass] 
 date:   Nov 22, 2016
 ---
 
