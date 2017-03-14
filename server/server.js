@@ -36,6 +36,9 @@ app.set('view engine', 'ejs');
 // ---------------------
 
 app.use('/', postRoutes);
+app.use((req, res) => {
+    res.redirect('/')
+});
 
 //have express listen for request
 const server = app.listen(port, () => {
