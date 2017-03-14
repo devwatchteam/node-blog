@@ -46,18 +46,24 @@ const navigation = nav((nav) => {
 
   //render list from tags
   router.get('/:tag', (req, res) => {
-    res.render('index', {
-        title: "sup dunny",
-        nav: sortedNav,
-        list: tagPost[req.params.tag]
-    });
+    if (tagPost[req.params.tag]) {
+      res.render('index', {
+          title: "sup dunny",
+          nav: sortedNav,
+          list: tagPost[req.params.tag]
+      });
+    }
+    res.redirect('/');
+
   });
 
   //render single post
   router.get('/post/:post', (req, res) => {
     //get yaml front matter and body of post
     fs.readFile(`./src/post/${req.params.post}`, 'utf8', (err, data) => {
-      if (err) throw err;
+      if (err) {
+        res.redirect('/');
+      }
       const content = fm(data);
       const body = md.toHTML(content.body);
       //once read render single post
@@ -68,7 +74,6 @@ const navigation = nav((nav) => {
       });
     });
   });
-
 });
 
 module.exports = router;
