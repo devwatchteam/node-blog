@@ -4,7 +4,7 @@
   &-header {
     display: flex;
     font-size: 1rem;
-    padding: 1em 2em;
+    padding: 1em;
   }
 
   &-logo {
@@ -12,13 +12,7 @@
   }
 
   &-nav {
-    background: $gray-lightest;
-    bottom: 0;
     margin: auto 0 auto auto;
-    position: absolute;
-    right: 0;
-    top: 0;
-    //transform: translateX(100%);
   }
 
   &-nav-open {
@@ -31,11 +25,28 @@
   }
 
   &-nav-list-item {
-    display: block;
+    display: inline-block;
+    text-align: center;
+
+    a {
+      color: cornflowerblue;
+      display: block;
+      padding: 1em;
+      text-shadow: 1px 1px 1px #fff;
+    }
+
+    &:hover {
+      background: cornflowerblue;
+
+      a {
+        color: white;
+        text-shadow: none;
+      }
+    }
   }
 
   &-nav-list-item:not(:last-child) {
-    @include bp(700) {
+    @include bp(1300) {
       margin-right: 1.5em;
     }
   }

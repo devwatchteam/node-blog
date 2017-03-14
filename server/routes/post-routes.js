@@ -10,7 +10,7 @@ const navigation = nav((nav) => {
   // ---------------------------------
   // -- create nav and post objects --
   // ---------------------------------
-  
+
   //create navigation from list of tags
   const sortedNav = [];
   const tagPost = {};
@@ -30,7 +30,6 @@ const navigation = nav((nav) => {
       }
     });
   });
-  console.log("NAV LIST MANG:", tagPost);
 
   // ---------------------
   // --   post routes   --
@@ -38,6 +37,7 @@ const navigation = nav((nav) => {
 
   //render list from post directory
   router.get('/', (req, res) => {
+
     res.render('index', {
         nav: sortedNav,
         list: nav.list
