@@ -2,17 +2,16 @@
 <html>
   <head>
     <title>My React App</title>
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css"/>
   </head>
   <body>
-    <ul class="nav navbar-nav">
-			<% for(var i = 0; i < nav.length; i++) {%>
-        <li><a href="/<%=nav[i].Link%>"><%=nav[i].Text%></a></li>
-      <%}%>
-    </ul>
+    <%- include partials/header.ejs %>
     <div id="mount">
       <h1><%-JSON.stringify(post.title).replace(/\"/g, "")%></h1>
       <a href="twitter.com/<%-JSON.stringify(post.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.author).replace(/\"/g, "")%></a>
       <%-body%>
+    </div>
     </div>
 
     <!-- <script src="./public/index_bundled.js"</script> -->

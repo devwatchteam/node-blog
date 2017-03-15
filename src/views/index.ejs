@@ -11,7 +11,7 @@
       <ul class="post-list">
   			<% for(var i = 0; i < list.length; i++) {%>
           <li>
-            <a href="post/<%=list[i].filename%>">
+            <a href="/post/<%=list[i].filename%>">
               <date><%=list[i].date.replace(/\"/g, "")%></date>
               <h2><%=list[i].title.replace(/\"/g, "")%></h2>
               <p><%=list[i].description.replace(/\"/g, "")%></p>

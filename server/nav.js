@@ -56,3 +56,70 @@ const nav = (cb) => {
 };
 
 module.exports = nav;
+
+// const postData = require('../src/data/post.json');
+//
+// const nav = () => {
+//   // ---------------------------------
+//   // -- create nav and post objects --
+//   // ---------------------------------
+//
+//   //create navigation from list of tags
+//   let navLinks = [];
+//   // let postList = [];
+//   const sortedNav = [];
+//   const tagPost = {};
+//   Object.keys(postData).map((poster) => {
+//     navLinks = navLinks.concat(postData[poster].tags);
+//     // postList = postList.concat(postData[poster]);
+//   });
+//   //remove dupes
+//   navLinks = navLinks.reduce((a, b) => {
+//     if (a.indexOf(b) < 0 ) a.push(b);
+//     return a;
+//   },[]);
+//   //sort from newest to oldest
+//   // postList.sort((a, b) => {
+//   //   const dateA = new Date(a.date);
+//   //   const dateB = new Date(b.date);
+//   //   return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
+//   // });
+//   navLinks.map((item, i) => {
+//     //create link object to be passed into nav array for ejs template
+//     const link = {
+//       Link:`/${navLinks[i]}`,
+//       Text: `${navLinks[i]}`
+//     }
+//     //push link object onto nav array
+//     sortedNav.push(link);
+//
+//     // tagPost[item] = [];
+//     // postList.map((post, index) => {
+//     //   if(post.tags.includes(item) ) {
+//     //     tagPost[item].push(post);
+//     //   }
+//     // });
+//   });
+//   return sortedNav;
+// };
+//
+// const post = () => {
+//
+//   let postList = [];
+//   const sortedNav = [];
+//   const tagPost = {};
+//   Object.keys(postData).map((poster) => {
+//     postList = postList.concat(postData[poster]);
+//   });
+//
+//   //sort from newest to oldest
+//   postList.sort((a, b) => {
+//     const dateA = new Date(a.date);
+//     const dateB = new Date(b.date);
+//     return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
+//   });
+//   return postList;
+// };
+// export const sortedNav = nav();
+// export const postList = post();
+// console.log(sortedNav);
