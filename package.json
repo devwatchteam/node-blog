@@ -7,8 +7,8 @@
     "start:dev": "npm run serve:dev & npm run watch",
     "serve:dev": "NODE_ENV='development' nodemon ./server/server.js --exec babel-node --inspect",
     "compile": "node ./server/post-info.js",
-    "sass": "node-sass --source-map true --output-style compressed ./src/sass/main.scss -o ./public/css/",
-    "post": "postcss ./public/css/main.css -u autoprefixer -m -o ./public/css/main.css",
+    "sass": "node-sass --source-map true --output-style compressed ./src/sass/main.scss -o ./public/static/css/",
+    "post": "postcss ./public/static/css/main.css -u autoprefixer -m -o ./public/static/css/main.css",
     "watch": "nodemon -e scss -x 'npm run sass && npm run post'"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",
