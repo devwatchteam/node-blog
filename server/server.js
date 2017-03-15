@@ -24,12 +24,6 @@ app.use(express.static(__dirname + '/public'));
 //check if we are in dev or prod
 (NODE_ENV === 'development') ? app.use(morgan('dev')) : app.use(compression());
 
-// ---------------------
-// --   templating    --
-// ---------------------
-
-app.set('views', 'src/views');
-app.set('view engine', 'ejs');
 
 // ---------------------
 // --     routes      --
