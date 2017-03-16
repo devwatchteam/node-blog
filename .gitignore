@@ -3,5 +3,4 @@ www/bundle.js
 dist
 npm-debug.log
 .DS_Store
-oldTry
 public
