@@ -3,7 +3,7 @@ const fm = require('front-matter');
 const md = require('markdown');
 
 
-const poster = () => {
+// const poster = () => {
   fs.readdir(`./src/post/`, (err, posts) => {
     //if error in getting
     if (err) throw err;
@@ -36,5 +36,5 @@ const poster = () => {
       });
     });
   });
-};
-poster();
+// };
+// poster();
