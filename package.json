@@ -10,7 +10,7 @@
     "sass": "node-sass --source-map true --output-style compressed ./src/sass/main.scss -o ./public/static/css/",
     "post": "postcss ./public/static/css/main.css -u autoprefixer -m -o ./public/static/css/main.css",
     "watch": "nodemon -e scss -x 'npm run sass && npm run post'",
-    "postcheckout": "./node_modules/.bin/build-ignore \"master\""
+    "postcheckout": "./node_modules/.bin/build-ignore"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",
   "author": "David Conner",
