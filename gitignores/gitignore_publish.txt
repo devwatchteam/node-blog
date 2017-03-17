@@ -3,4 +3,7 @@ www/bundle.js
 dist
 npm-debug.log
 .DS_Store
-public
+gitignores
+server
+src
+.gitignore
