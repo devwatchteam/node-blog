@@ -11,7 +11,7 @@ let navLinks = [];
 let postList = []
 const sortedNav = [];
 const tagPost = {};
-const ROOT_DIR = __dirname.replace('/server/routes', '/public');
+const ROOT_DIR = __dirname.replace('/server/routes', '/docs');
 const ABS_DIR = __dirname.replace('*', '');
 //create site links for non post pages
 const totalNav = [
@@ -77,11 +77,11 @@ try {
     list: postList,
     filename: __dirname.replace('/server/routes', '') + '/src/views/index.ejs'
   });
-  if (!fs.existsSync(`public`)) {
-    fs.mkdirSync(`public`);
-    fs.writeFileSync(`public/index.html`, html, 'utf8');
+  if (!fs.existsSync(`docs`)) {
+    fs.mkdirSync(`docs`);
+    fs.writeFileSync(`docs/index.html`, html, 'utf8');
   } else {
-    fs.writeFileSync(`public/index.html`, html, 'utf8');
+    fs.writeFileSync(`docs/index.html`, html, 'utf8');
   }
 } catch (e) {
   console.log(e);
@@ -95,11 +95,11 @@ try {
     list: postList,
     filename: __dirname.replace('/server/routes', '') + '/src/views/about.ejs'
   });
-  if (!fs.existsSync(`public`)) {
-    fs.mkdirSync(`public`);
-    fs.writeFileSync(`public/about.html`, html, 'utf8');
+  if (!fs.existsSync(`docs`)) {
+    fs.mkdirSync(`docs`);
+    fs.writeFileSync(`docs/about.html`, html, 'utf8');
   } else {
-    fs.writeFileSync(`public/about.html`, html, 'utf8');
+    fs.writeFileSync(`docs/about.html`, html, 'utf8');
   }
 } catch (e) {
   console.log(e);
@@ -115,16 +115,16 @@ postList.map((post, index) => {
       body: post.body,
       filename: __dirname.replace('/server/routes', '') + '/src/views/static.ejs'
     });
-    if (!fs.existsSync(`public/post/`)) {
-      fs.mkdirSync(`public/post/`);
-      fs.writeFileSync(`public/post/${post.filename}.html`, html, 'utf8');
+    if (!fs.existsSync(`docs/post/`)) {
+      fs.mkdirSync(`docs/post/`);
+      fs.writeFileSync(`docs/post/${post.filename}.html`, html, 'utf8');
     } else {
-      fs.writeFileSync(`public/post/${post.filename}.html`, html, 'utf8');
+      fs.writeFileSync(`docs/post/${post.filename}.html`, html, 'utf8');
     }
   } catch (e) {
     console.log(e);
   }
-}); 
+});
 
 //create tag post files
 navLinks.map((tag, index) => {
@@ -136,11 +136,11 @@ navLinks.map((tag, index) => {
       list: tagPost[tag],
       filename: __dirname.replace('/server/routes', '') + '/src/views/index.ejs'
     });
-    if (!fs.existsSync(`public/${tag}`)) {
-      fs.mkdirSync(`public/${tag}`);
-      fs.writeFileSync(`public/${tag}/index.html`, html, 'utf8');
+    if (!fs.existsSync(`docs/${tag}`)) {
+      fs.mkdirSync(`docs/${tag}`);
+      fs.writeFileSync(`docs/${tag}/index.html`, html, 'utf8');
     } else {
-      fs.writeFileSync(`public/${tag}/index.html`, html, 'utf8');
+      fs.writeFileSync(`docs/${tag}/index.html`, html, 'utf8');
     }
   } catch (e) {
     console.log(e);

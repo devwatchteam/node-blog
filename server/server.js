@@ -20,8 +20,8 @@ const port = process.env.PORT || 3000;
 // ---------------------
 
 //serve static files
-app.use(express.static(ROOT_DIR + '/public'));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(ROOT_DIR + '/docs'));
+app.use(express.static(__dirname + '/docs'));
 //check if we are in dev or prod
 (NODE_ENV === 'development') ? app.use(morgan('dev')) : app.use(compression());
 
