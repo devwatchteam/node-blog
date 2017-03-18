@@ -1,15 +1,4 @@
 {
-    "testing-this-jazz.md": {
-        "title": "TEsting this ish like whoa!",
-        "description": "Some fly ass shit!",
-        "author": "@Dave_Conner",
-        "tags": [
-            "javascript"
-        ],
-        "date": "March 8, 2017",
-        "body": "<h2>Outline</h2>\n\n<ol><li>Migration<ol><li>Loaders</li><li>PreLoaders/PostLoaders</li><li>ExtractTextPlugin</li></ol></li><li>Custom Properties no longer allowed</li><li>Tree shaking</li></ol>\n\n<h2>Migration</h2>\n\n<p>Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade. Staying on the bleeding edge can get tiresome for as soon as you update Webpack and try to compile you get an error. The good news? There is now a config validator built into Webpack v2 which is pretty sweet.  The bad news? As the validator will tell you, there are several items in your config which are now incompatible with the new api schema. Lucky for us, the team has put together a <a href=\"https://webpack.js.org/guides/migrating/\">migration guide</a>. One of the most improved features of Webpack may actually be their documentation. This guide is straight forward and helpful and the new documents don’t leave you with a headache.</p>",
-        "filename": "testing-this-jazz"
-    },
     "awesome-article.md": {
         "title": "Dope on a muh fuckin rope!",
         "description": "Some fly ass shit!",
@@ -45,5 +34,16 @@
         "date": "Nov 22, 2016",
         "body": "<h2>A basic starter for creating performant, ‘native’ like mobile web apps.</h2>\n\n<p>The distinction between native and web based applications is blurring. The modern browser’s capabilities and the many <a href=\"https://developer.mozilla.org/en-US/docs/Web/API\">web APIs</a> available have quieted the biggest arguments against developing one’s application using web technologies. BootstrApp is a collection of best practices and helper functions that will help make your mobile application feel native and save you time in development. So, let’s break down the pieces.</p>\n\n<h2>Metatags</h2>\n\n<p>Resources: <a href=\"https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html\">1</a>, <a href=\"https://developers.chrome.com/multidevice/android/installtohomescreen\">2</a>\nIn addition to our regular html boilerplate there are a few links and meta tags that you will have to include.</p>\n\n<p><a href=\"https://developers.google.com/web/fundamentals/native-hardware/fullscreen/\">Fullscreen dat app!</a>\nThis first group of metatags are necessary to remove the address bar when your app is added to the home page. This will only work on single page apps as navigating to another page will cause the address bar to reappear. <strong>(confirm)</strong>\n<code>\n&lt;!-- Get rid of the address bar when saved to home screen\n --&gt;\n &lt;!-- iOS --&gt;\n&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;\n&lt;!-- Android --&gt;\n&lt;meta name=&quot;mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;\n</code></p>\n\n<p>Next you will want to specify the title for the app. This will appear with your app icon when saved to the home screen. On Android devices the application’s <code>&lt;title&gt;</code> element serves as the default label for the icon on the homescreen.</p>\n\n<p><code>\n&lt;!-- Specify a title for the app add to home --&gt;\n &lt;!-- iOS --&gt;\n&lt;meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;App Name&quot;&gt;\n</code></p>\n\n<p>Adding an icon for the home screen can get a bit ridiculous when trying to serve all the different types that are out there. By serving one high res icon you can take care of most use cases.</p>\n\n<p><code>\n&lt;!-- Change app icon --&gt;\n &lt;!-- iOS, Android (deprecated) --&gt;\n&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;/custom_icon.png&quot;&gt;\n&lt;!-- Android --&gt;\n&lt;link rel=&quot;icon&quot; sizes=&quot;192x192&quot; href=&quot;nice-highres.png&quot;&gt;\n</code></p>",
         "filename": "bootstr-app"
+    },
+    "testing-this-jazz.md": {
+        "title": "TEsting this ish like whoa!",
+        "description": "Some fly ass shit!",
+        "author": "@Dave_Conner",
+        "tags": [
+            "javascript"
+        ],
+        "date": "March 8, 2017",
+        "body": "<h2>Outline</h2>\n\n<ol><li>Migration<ol><li>Loaders</li><li>PreLoaders/PostLoaders</li><li>ExtractTextPlugin</li></ol></li><li>Custom Properties no longer allowed</li><li>Tree shaking</li></ol>\n\n<h2>Migration</h2>\n\n<p>Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade. Staying on the bleeding edge can get tiresome for as soon as you update Webpack and try to compile you get an error. The good news? There is now a config validator built into Webpack v2 which is pretty sweet.  The bad news? As the validator will tell you, there are several items in your config which are now incompatible with the new api schema. Lucky for us, the team has put together a <a href=\"https://webpack.js.org/guides/migrating/\">migration guide</a>. One of the most improved features of Webpack may actually be their documentation. This guide is straight forward and helpful and the new documents don’t leave you with a headache.</p>",
+        "filename": "testing-this-jazz"
     }
 }
