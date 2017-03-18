@@ -3,7 +3,6 @@ www/bundle.js
 dist
 npm-debug.log
 .DS_Store
-gitignores
 server
 src
 .gitignore
