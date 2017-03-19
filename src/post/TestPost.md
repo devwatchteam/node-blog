@@ -1,9 +1,9 @@
 ---
-title: Dope on a muh fuckin rope mang!
+title: Some Real ish!!
 description: Some fly ass shit!
 author: "@Dave_Conner"
-tags: [javascript]
-date: March 8, 2017 
+tags: [javascript, markdown]
+date: March 8, 2017
 ---
 
 #Webpack v.2
@@ -13,6 +13,7 @@ date: March 8, 2017
 1. [migration](https://webpack.js.org/guides/migrating/)
 2. [ExtractTextPlugin](https://github.com/webpack-contrib/extract-text-webpack-plugin)
 3. [tree shaking](http://www.2ality.com/2015/12/webpack-tree-shaking.html)
+
 
 ## Outline
 1. Migration

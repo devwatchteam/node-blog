@@ -1,9 +1,9 @@
 ---
-title: Dope on a muh fuckin rope mang!
+title: Nodemon!
 description: Some fly ass shit!
 author: "@Dave_Conner"
 tags: [javascript]
-date: March 8, 2017 
+date: March 8, 2017
 ---
 
 #Webpack v.2
