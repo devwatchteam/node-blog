@@ -47,6 +47,7 @@ postList.sort((a, b) => {
   const dateB = new Date(b.date);
   return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
 });
+
 //
 navLinks.map((item, i) => {
   //create link object to be passed into nav array for ejs template
@@ -67,7 +68,7 @@ navLinks.map((item, i) => {
 
 //add post links to site links
 totalNav[1].Sub = sortedNav;
-console.log(totalNav);
+
 
 //create home page
 try {
@@ -147,6 +148,7 @@ navLinks.map((tag, index) => {
   }
 });
 
+console.log("SITE GENERATED");
 // ---------------------
 // --   post routes   --
 // ---------------------

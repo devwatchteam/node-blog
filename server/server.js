@@ -12,8 +12,6 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const ROOT_DIR = __dirname.replace('/server', '');
 //check port
 const port = process.env.PORT || 3000;
-//define navigation
-
 
 // ---------------------
 // -- some middleware --
@@ -31,7 +29,7 @@ app.use(express.static(__dirname + '/docs'));
 
 app.use('/', postRoutes);
 app.use((req, res) => {
-    res.redirect('/')
+    res.redirect('/');
 });
 
 //have express listen for request
