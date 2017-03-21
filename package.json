@@ -10,7 +10,7 @@
     "compile-sass": "node-sass --source-map true --output-style compressed ./src/sass/main.scss -o ./docs/static/css/",
     "compile-postcss": "postcss ./docs/static/css/main.css -u autoprefixer -m -o ./docs/static/css/main.css",
     "watch:dev": "nodemon -w server ./server/server.js -x 'babel-node'",
-    "watch:post": "nodemon -e md -x 'npm run compile-postjson & npm run compile-post'",
+    "watch:post": "nodemon -e md, ejs -x 'npm run compile-postjson & npm run compile-post'",
     "watch:styles": "nodemon -e scss -x 'npm run compile-sass & npm run compile-postcss'",
     "postcheckout": "npm start"
   },
