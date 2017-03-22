@@ -1,19 +1,18 @@
-<!doctype html>
-<html>
-  <head>
-    <title>My React App</title>
-    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,minimum-scale=1.0">
-    <link rel="stylesheet" href="/css/main.css"/>
-  </head>
-  <body>
-    <%- include partials/header.ejs %>
-    <div id="mount">
-      <h1><%-JSON.stringify(post.title).replace(/\"/g, "")%></h1>
-      <a href="twitter.com/<%-JSON.stringify(post.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.author).replace(/\"/g, "")%></a>
-      <%-body%>
-    </div>
-    </div>
+<!-- head -->
+<%- include partials/head.ejs %>
+<!-- /head -->
 
-    <!-- <script src="./public/index_bundled.js"</script> -->
-  </body>
-</html>
+<!-- body -->
+  <%- include partials/header.ejs %>
+  <div id="mount">
+    <h1><%-JSON.stringify(post.title).replace(/\"/g, "")%></h1>
+    <a href="twitter.com/<%-JSON.stringify(post.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.author).replace(/\"/g, "")%></a>
+    <%-body%>
+  </div>
+  </div>
+
+<!-- footer -->
+<%- include partials/footer.ejs %>
+<!-- /footer -->
+
+<!-- /body -->

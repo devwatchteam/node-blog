@@ -20,16 +20,15 @@ const port = process.env.PORT || 3000;
 //serve static files
 app.use(express.static(ROOT_DIR + '/docs'));
 app.use(express.static(__dirname + '/docs'));
-//check if we are in dev or prod
-(NODE_ENV === 'development') ? app.use(morgan('dev')) : app.use(compression());
+app.use(morgan('dev'));
 
 // ---------------------
 // --     routes      --
 // ---------------------
 
-app.use('/', postRoutes);
+app.use(`/`, postRoutes);
 app.use((req, res) => {
-    res.redirect('/');
+    res.redirect(`/`);
 });
 
 //have express listen for request

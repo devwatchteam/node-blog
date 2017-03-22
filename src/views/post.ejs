@@ -1,20 +1,16 @@
-<!doctype html>
-<html>
-  <head>
-    <title>My React App</title>
-  </head>
-  <body>
-    <ul class="nav navbar-nav">
-			<% for(var i = 0; i < nav.length; i++) {%>
-        <li><a href="/<%=nav[i].Link%>"><%=nav[i].Text%></a></li>
-      <%}%>
-    </ul>
-    <div id="mount">
-      <h1><%-JSON.stringify(post.title).replace(/\"/g, "")%></h1>
-      <a href="twitter.com/<%-JSON.stringify(post.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.author).replace(/\"/g, "")%></a>
-      <%-body%>
-    </div>
+<!-- head -->
+<%- include partials/head.ejs %>
+<!-- /head -->
 
-    <!-- <script src="./public/index_bundled.js"</script> -->
-  </body>
-</html>
+<!-- body -->
+  <%- include partials/header.ejs %>
+  <div id="mount">
+    <h1><%-JSON.stringify(post.title).replace(/\"/g, "")%></h1>
+    <a href="twitter.com/<%-JSON.stringify(post.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.author).replace(/\"/g, "")%></a>
+    <%-body%>
+  </div>
+<!-- /body -->
+
+<!-- footer -->
+<%- include partials/footer.ejs %>
+<!-- /footer -->
