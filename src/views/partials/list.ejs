@@ -1,0 +1,24 @@
+<div id="mount">
+  <ul class="post-list">
+    <% for(var i = 0; i < list.length; i++) {%>
+      <li>
+        <a href="/<%-process.env.npm_package_reponame%>/post/<%=list[i].filename%>">
+          <date><%=list[i].date.replace(/\"/g, "")%></date>
+          <h2><%=list[i].title.replace(/\"/g, "")%></h2>
+          <p><%=list[i].description.replace(/\"/g, "")%></p>
+          <ul>
+            <%
+              const tags = list[i].tags;
+              for(let i = 0; i < tags.length; i++) {%>
+              <li>
+                <a href="#">
+                  <%=tags[i].replace(/\"/g, "")%>
+                </a>
+              </li>
+            <%}%>
+          </ul>
+        </a>
+      </li>
+    <%}%>
+  </ul>
+</div>

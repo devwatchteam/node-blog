@@ -5,26 +5,23 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run watch:dev & npm run watch:post & npm run watch:styles",
-    "compile-postjson": "node ./server/post-info.js",
-    "compile-post": "babel-node ./server/routes/post-routes.js",
+    "start:dev": "NODE_ENV='development' babel-node ./server/server.js",
+    "compile": "NODE_ENV='production' babel-node ./server/post-compile.js",
+
+    "compile-postjson": "babel-node ./server/post-info.js",
+    "compile-post": "babel-node ./server/post-compile.js",
     "compile-sass": "node-sass --source-map true --output-style compressed ./src/sass/main.scss -o ./docs/static/css/",
     "compile-postcss": "postcss ./docs/static/css/main.css -u autoprefixer -m -o ./docs/static/css/main.css",
-    "watch:dev": "nodemon -w server ./server/server.js -x 'babel-node'",
-    "watch:post": "nodemon -e md, ejs -x 'npm run compile-postjson & npm run compile-post'",
-    "watch:styles": "nodemon -e scss -x 'npm run compile-sass & npm run compile-postcss'",
-    "postcheckout": "npm start"
+    "watch:dev": "NODE_ENV='development' nodemon -w server ./server/server.js -x 'babel-node'",
+    "watch:post": "nodemon -e md -x 'npm run compile-postjson & npm run compile-post'",
+    "watch:styles": "nodemon -e scss -x 'npm run compile-sass & npm run compile-postcss'"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",
+  "reponame": "node-blog",
   "author": "David Conner",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.1.5",
-    "body-parser": "^1.17.1",
-    "compression": "^1.6.2",
-    "ejs": "^2.5.6",
-    "express": "^4.15.2",
-    "front-matter": "^2.1.2",
-    "markdown": "^0.5.0"
+    "compression": "^1.6.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.6",
@@ -34,9 +31,13 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
     "build-ignore": "^1.0.5",
+    "ejs": "^2.5.6",
     "eslint": "^3.17.1",
     "eslint-plugin-babel": "^4.1.1",
+    "express": "^4.15.2",
+    "front-matter": "^2.1.2",
     "husky": "^0.13.2",
+    "markdown": "^0.5.0",
     "morgan": "^1.8.1",
     "node-sass": "^4.5.0",
     "postcss": "^5.2.16",
