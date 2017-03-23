@@ -1,8 +1,8 @@
-const fs = require('fs');
-const fm = require('front-matter');
-const md = require('markdown');
+import fs from 'fs';
+import fm from 'front-matter';
+import {markdown as md} from 'markdown';
 
-// const poster = () => {
+//get directory post
 fs.readdir(`./src/post/`, (err, posts) => {
   //if error in getting
   if (err) throw err;
@@ -19,7 +19,7 @@ fs.readdir(`./src/post/`, (err, posts) => {
       //pull yaml front matter
       const content = fm(data);
       const postData = content.attributes;
-      postData.body = md.markdown.toHTML(content.body);
+      postData.body = md.toHTML(content.body);
       postData.filename = fileName.slice(0, -3);
       //push new post object onto list array
       postList[fileName] = postData;
@@ -35,5 +35,3 @@ fs.readdir(`./src/post/`, (err, posts) => {
     });
   });
 });
-// };
-// poster();

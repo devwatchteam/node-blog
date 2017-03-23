@@ -23,6 +23,13 @@ app.use(express.static(__dirname + '/docs'));
 app.use(morgan('dev'));
 
 // ---------------------
+// --   templating    --
+// ---------------------
+
+app.set('views', 'src/views');
+app.set('view engine', 'ejs');
+
+// ---------------------
 // --     routes      --
 // ---------------------
 
