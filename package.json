@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run watch:dev & npm run watch:post & npm run watch:styles",
     "start:dev": "NODE_ENV='development' babel-node ./server/server.js",
-    "compile": "NODE_ENV='production' babel-node ./server/routes/post-routes.js, ./server/server.js",
+    "compile": "NODE_ENV='production' babel-node ./server/post-compile.js",
 
     "compile-postjson": "babel-node ./server/post-info.js",
     "compile-post": "babel-node ./server/post-compile.js",
