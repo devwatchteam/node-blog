@@ -1,8 +1,11 @@
 import express from 'express';
 import fs from 'fs';
-import fm from 'front-matter';
-import {markdown as md} from 'markdown';
 import ejs from 'ejs';
+import sass from 'node-sass';
+import postcss from 'postcss';
+import autoprefixer from 'autoprefixer';
+import mkdirp from 'mkdirp';
+import {dirname} from 'path';
 
 const postData = require('../src/data/post.json');
 const sortedNav = [];
@@ -20,6 +23,15 @@ const totalNav = [
     Text: `catagories`
   },
 ];
+
+
+//using mkdirp to make any missing directories in path for fs.writefile
+const writeFile = (path, contents) => {
+  mkdirp(dirname(path), (err) => {
+    if (err) throw err;
+    fs.writeFileSync(path, contents, 'utf8');
+  });
+}
 
 // ---------------------------------
 // -- create nav and post objects --
@@ -146,6 +158,34 @@ navLinks.map((tag, index) => {
 });
 
 console.log("SITE GENERATED");
+
+sass.render({
+  file: 'src/sass/main.scss',
+  sourceMap: true,
+  outFile: 'docs/static/css/main.css',
+  outputStyle: 'compressed'
+}, (err, result) => {
+  postcss([autoprefixer]).process(result.css, { from: './docs/static/css/main.css', to: './docs/static/css/main.css' })
+    .then(result => {
+      //write to docs folder
+      writeFile(`docs/static/css/main.css`, result.css);
+      // if (!fs.existsSync(`docs/static/css`)) {
+      //   fs.mkdirSync(`docs/static/css`);
+      //   fs.writeFileSync(`docs/static/css/main.css`, result.css, 'utf8');
+      // } else {
+      //   fs.writeFileSync(`docs/static/css/main.css`, result.css, 'utf8');
+      // }
+      //write for dev
+      writeFile(`src/${process.env.npm_package_reponame}/static/css/main.css`, result.css);
+      // if (!fs.existsSync(`src/${process.env.npm_package_reponame}/static/css`)) {
+      //   fs.mkdirSync(`src/${process.env.npm_package_reponame}/static/css`);
+      //   fs.writeFileSync(`src/${process.env.npm_package_reponame}/static/css/main.css`, result.css, 'utf8');
+      // } else {
+      //   fs.writeFileSync(`src/${process.env.npm_package_reponame}/static/css/main.css`, result.css, 'utf8');
+      // }
+      console.log(`CSS COMPILED`);
+    });
+});
 
 module.exports = {
   totalNav,

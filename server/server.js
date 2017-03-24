@@ -1,6 +1,5 @@
 import express from 'express';
 import morgan from 'morgan';
-import compression from 'compression';
 import path from 'path';
 import postRoutes from './routes/post-routes';
 
@@ -16,10 +15,9 @@ const port = process.env.PORT || 3000;
 // ---------------------
 // -- some middleware --
 // ---------------------
-
 //serve static files
-app.use(express.static(ROOT_DIR + '/docs'));
-app.use(express.static(__dirname + '/docs'));
+app.use(express.static(ROOT_DIR + `/src`));
+//use logger to monitor request.
 app.use(morgan('dev'));
 
 // ---------------------
