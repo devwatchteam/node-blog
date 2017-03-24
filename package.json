@@ -6,14 +6,17 @@
   "scripts": {
     "start": "npm run watch:dev & npm run watch:post & npm run watch:styles",
     "start:dev": "NODE_ENV='development' babel-node ./server/server.js",
-    "compile": "NODE_ENV='production' babel-node ./server/post-compile.js",
+    "compile:dev": "NODE_ENV='development' babel-node ./server/post-info.js && NODE_ENV='development' babel-node ./server/post-compile.js",
+    "compile:prod": "NODE_ENV='production' babel-node ./server/post-info.js && NODE_ENV='production' babel-node ./server/post-compile.js",
 
     "compile-postjson": "babel-node ./server/post-info.js",
     "compile-post": "babel-node ./server/post-compile.js",
+
     "compile-sass": "node-sass --source-map true --output-style compressed ./src/sass/main.scss -o ./docs/static/css/",
     "compile-postcss": "postcss ./docs/static/css/main.css -u autoprefixer -m -o ./docs/static/css/main.css",
+
     "watch:dev": "NODE_ENV='development' nodemon -w server ./server/server.js -x 'babel-node'",
-    "watch:post": "nodemon -e md -x 'npm run compile-postjson & npm run compile-post'",
+    "watch:post": "nodemon -e md -x 'npm run compile-dev'",
     "watch:styles": "nodemon -e scss -x 'npm run compile-sass & npm run compile-postcss'"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",

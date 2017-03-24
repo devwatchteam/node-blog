@@ -1,8 +1,9 @@
 import express from 'express';
 import fs from 'fs';
-import fm from 'front-matter';
-import {markdown as md} from 'markdown';
 import ejs from 'ejs';
+import sass from 'node-sass';
+import postcss from 'postcss';
+import autoprefixer from 'autoprefixer';
 
 const postData = require('../src/data/post.json');
 const sortedNav = [];
@@ -146,6 +147,31 @@ navLinks.map((tag, index) => {
 });
 
 console.log("SITE GENERATED");
+
+sass.render({
+  file: 'src/static/sass/main.scss',
+  sourceMap: true,
+  outFile: 'docs/static/css/main.css',
+  outputStyle: 'compressed'
+}, (err, result) => {
+  // console.log(result.css.toString());
+  postcss([autoprefixer]).process(result.css, { from: './docs/static/css/main.css', to: './docs/static/css/main.css' })
+    .then(result => {
+      console.log(result.css);
+      if (!fs.existsSync(`docs/static/css`)) {
+        fs.mkdirSync(`docs/static/css`);
+        fs.writeFileSync(`docs/static/css/main.css`, result.css, 'utf8');
+      } else {
+        fs.writeFileSync(`docs/static/css/main.css`, result.css, 'utf8');
+      }
+      if (!fs.existsSync(`src/static/css`)) {
+        fs.mkdirSync(`src/static/css`);
+        fs.writeFileSync(`src/static/css/main.css`, result.css, 'utf8');
+      } else {
+        fs.writeFileSync(`src/static/css/main.css`, result.css, 'utf8');
+      }
+    });
+});
 
 module.exports = {
   totalNav,

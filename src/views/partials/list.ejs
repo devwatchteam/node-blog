@@ -11,7 +11,7 @@
               const tags = list[i].tags;
               for(let i = 0; i < tags.length; i++) {%>
               <li>
-                <a href="#">
+                <a href="/<%-process.env.npm_package_reponame%>%>/<%=tags[i]%>">
                   <%=tags[i].replace(/\"/g, "")%>
                 </a>
               </li>
