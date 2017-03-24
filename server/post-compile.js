@@ -25,11 +25,10 @@ const totalNav = [
 ];
 
 
-
+//using mkdirp to make any missing directories in path for fs.writefile
 const writeFile = (path, contents) => {
   mkdirp(dirname(path), (err) => {
     if (err) throw err;
-
     fs.writeFileSync(path, contents, 'utf8');
   });
 }
