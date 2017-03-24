@@ -2,8 +2,8 @@
 title: Dope on a muh fuckin rope mang!
 description: Some fly ass shit!
 author: "@Dave_Conner"
-tags: [javascript]
-date: March 8, 2017 
+tags: [javascript, webpack]
+date: March 8, 2017
 ---
 
 #Webpack v.2

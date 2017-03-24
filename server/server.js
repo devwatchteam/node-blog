@@ -17,8 +17,8 @@ const port = process.env.PORT || 3000;
 // ---------------------
 
 //serve static files
-app.use(express.static(ROOT_DIR + '/src/static'));
-app.use(express.static(__dirname + '/src/static'));
+app.use(express.static(ROOT_DIR + `/src/${process.env.npm_package_reponame}static`));
+app.use(express.static(__dirname + `/src/${process.env.npm_package_reponame}/static`));
 app.use(morgan('dev'));
 
 // ---------------------
