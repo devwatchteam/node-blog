@@ -8,6 +8,7 @@ import mkdirp from 'mkdirp';
 import {dirname} from 'path';
 
 const postData = require('../src/data/post.json');
+const ROOT_DIR = __dirname.replace('/server', '');
 const sortedNav = [];
 const tagPost = {};
 let navLinks = [];
@@ -87,12 +88,7 @@ try {
     list: postList,
     filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
   });
-  if (!fs.existsSync(`docs`)) {
-    fs.mkdirSync(`docs`);
-    fs.writeFileSync(`docs/index.html`, html, 'utf8');
-  } else {
-    fs.writeFileSync(`docs/index.html`, html, 'utf8');
-  }
+  writeFile(`docs/index.html`, html);
 } catch (e) {
   console.log(e);
 }
@@ -105,12 +101,7 @@ try {
     list: postList,
     filename: __dirname.replace('/server', '') + '/src/views/about.ejs'
   });
-  if (!fs.existsSync(`docs`)) {
-    fs.mkdirSync(`docs`);
-    fs.writeFileSync(`docs/about.html`, html, 'utf8');
-  } else {
-    fs.writeFileSync(`docs/about.html`, html, 'utf8');
-  }
+  writeFile(`docs/about.html`, html);
 } catch (e) {
   console.log(e);
 }
@@ -125,12 +116,7 @@ postList.map((post, index) => {
       body: post.body,
       filename: __dirname.replace('/server', '') + '/src/views/static.ejs'
     });
-    if (!fs.existsSync(`docs/post/`)) {
-      fs.mkdirSync(`docs/post/`);
-      fs.writeFileSync(`docs/post/${post.filename}.html`, html, 'utf8');
-    } else {
-      fs.writeFileSync(`docs/post/${post.filename}.html`, html, 'utf8');
-    }
+    writeFile(`docs/post/${post.filename}.html`, html);
   } catch (e) {
     console.log(e);
   }
@@ -146,12 +132,7 @@ navLinks.map((tag, index) => {
       list: tagPost[tag],
       filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
     });
-    if (!fs.existsSync(`docs/${tag}`)) {
-      fs.mkdirSync(`docs/${tag}`);
-      fs.writeFileSync(`docs/${tag}/index.html`, html, 'utf8');
-    } else {
-      fs.writeFileSync(`docs/${tag}/index.html`, html, 'utf8');
-    }
+    writeFile(`docs/${tag}/index.html`, html);
   } catch (e) {
     console.log(e);
   }
@@ -159,32 +140,38 @@ navLinks.map((tag, index) => {
 
 console.log("SITE GENERATED");
 
+// render sass and process autoprefixer
 sass.render({
   file: 'src/sass/main.scss',
   sourceMap: true,
-  outFile: 'docs/static/css/main.css',
-  outputStyle: 'compressed'
+  sourceMapEmbed: true,
+  sourceMapContents: true,
+  outFile: 'docs/static/css/main.css'
 }, (err, result) => {
-  postcss([autoprefixer]).process(result.css, { from: './docs/static/css/main.css', to: './docs/static/css/main.css' })
+  postcss([autoprefixer]).process(result.css, {
+    from: './docs/static/css/main.css',
+    to: './docs/static/css/main.css',
+    map: { inline: true },
+   })
     .then(result => {
       //write to docs folder
       writeFile(`docs/static/css/main.css`, result.css);
-      // if (!fs.existsSync(`docs/static/css`)) {
-      //   fs.mkdirSync(`docs/static/css`);
-      //   fs.writeFileSync(`docs/static/css/main.css`, result.css, 'utf8');
-      // } else {
-      //   fs.writeFileSync(`docs/static/css/main.css`, result.css, 'utf8');
-      // }
       //write for dev
       writeFile(`src/${process.env.npm_package_reponame}/static/css/main.css`, result.css);
-      // if (!fs.existsSync(`src/${process.env.npm_package_reponame}/static/css`)) {
-      //   fs.mkdirSync(`src/${process.env.npm_package_reponame}/static/css`);
-      //   fs.writeFileSync(`src/${process.env.npm_package_reponame}/static/css/main.css`, result.css, 'utf8');
-      // } else {
-      //   fs.writeFileSync(`src/${process.env.npm_package_reponame}/static/css/main.css`, result.css, 'utf8');
-      // }
       console.log(`CSS COMPILED`);
     });
+});
+
+//move images to docs directory
+fs.readdir(`./src/static/img`, (err, images) => {
+  //if error in getting
+  if (err) throw err;
+  images.map((image, i) => {
+    const img = fs.readFileSync(`./src/static/img/${image}`);
+    writeFile(`docs/static/img/${image}`, img);
+    writeFile(`src/node-blog/static/img/${image}`, img);
+    console.log(`${image} COPIED`);
+  });
 });
 
 module.exports = {
