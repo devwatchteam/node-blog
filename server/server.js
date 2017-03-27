@@ -39,5 +39,5 @@ app.use((req, res) => {
 //have express listen for request
 const server = app.listen(port, () => {
   const host = server.address().address || 'localhost';
-  console.log('Your awesome app listening at http://%s:%s', host, port);
+  console.log('Your awesome blog is listening at http://localhost:%s', port);
 });
