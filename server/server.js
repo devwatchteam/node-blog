@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import path from 'path';
 import postRoutes from './routes/post-routes';
 
-//set up express server
+//set up express dev server
 const app = express();
 //find out node environment
 const NODE_ENV = process.env.NODE_ENV || 'development';
