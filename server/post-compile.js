@@ -1,4 +1,4 @@
-import express from 'express';
+// import express from 'express';
 import fs from 'fs';
 import ejs from 'ejs';
 import sass from 'node-sass';
@@ -24,7 +24,6 @@ const totalNav = [
     Text: `catagories`
   },
 ];
-
 
 //using mkdirp to make any missing directories in path for fs.writefile
 const writeFile = (path, contents) => {
@@ -140,37 +139,21 @@ navLinks.map((tag, index) => {
 
 console.log("SITE GENERATED");
 
-// render sass and process autoprefixer
-sass.render({
-  file: 'src/sass/main.scss',
-  sourceMap: true,
-  sourceMapEmbed: true,
-  sourceMapContents: true,
-  outFile: 'docs/static/css/main.css'
-}, (err, result) => {
-  postcss([autoprefixer]).process(result.css, {
-    from: './docs/static/css/main.css',
-    to: './docs/static/css/main.css',
-    map: { inline: true },
-   })
-    .then(result => {
-      //write to docs folder
-      writeFile(`docs/static/css/main.css`, result.css);
-      //write for dev
-      writeFile(`src/${process.env.npm_package_reponame}/static/css/main.css`, result.css);
-      console.log(`CSS COMPILED`);
-    });
-});
+
 
 //move images to docs directory
 fs.readdir(`./src/static/img`, (err, images) => {
   //if error in getting
   if (err) throw err;
   images.map((image, i) => {
-    const img = fs.readFileSync(`./src/static/img/${image}`);
-    writeFile(`docs/static/img/${image}`, img);
-    writeFile(`src/node-blog/static/img/${image}`, img);
-    console.log(`${image} COPIED`);
+    try {
+      const img = fs.readFileSync(`./src/static/img/${image}`);
+      writeFile(`docs/static/img/${image}`, img);
+      writeFile(`src/node-blog/static/img/${image}`, img);
+      console.log(`${image} COPIED`);
+    } catch (e) {
+      console.log(e);
+    }
   });
 });
 
