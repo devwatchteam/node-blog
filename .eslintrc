@@ -12,12 +12,10 @@
     }
   },
   "plugins": [
-    "babel",
-    "react"
+    "babel"
   ],
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
+    "eslint:recommended"
   ],
   "globals": {
     "__WEBPACK__": true
