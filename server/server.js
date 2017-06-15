@@ -44,5 +44,5 @@ app.use((req, res) => {
 
 //have express listen for request
 app.listen(port, () => {
-  console.log(chalk.yellow(`Your awesome blog is listening at ${chalk.yellow.underline('http://localhost:%s')}`), port);
+  console.log(chalk.bgWhite.blue(`Your awesome blog is listening at ${chalk.bgWhite.blue.underline('http://localhost:%s')}`), port);
 });

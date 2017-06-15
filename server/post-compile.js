@@ -12,7 +12,6 @@ const tagPost = {};
 let navLinks = [];
 let postList = [];
 // let singlePost;
-
 //create site links for non post pages
 const totalNav = [
   {
@@ -43,36 +42,34 @@ Object.keys(postData).map((poster) => {
 });
 
 //alphabatize
-navLinks.sort()
+navLinks.sort();
 
-  //remove dupes
-  .reduce((a, b) => {
-    if (a.indexOf(b) < 0 ) {
-      a.push(b);
+//remove dupes
+navLinks = navLinks.reduce((a, b) => {
+  if (a.indexOf(b) < 0 ) {
+    a.push(b);
+  }
+  return a;
+},[]);
+
+
+navLinks.map((item, i) => {
+
+  //create link object to be passed into nav array for ejs template
+  const link = {
+    Link:`${navLinks[i]}`,
+    Text: `${navLinks[i]}`
+  }
+  //push link object onto nav array
+  sortedNav.push(link);
+
+  tagPost[item] = [];
+  postList.map((post) => {
+    if(post.tags.includes(item) ) {
+      tagPost[item].push(post);
     }
-    return a;
-  },[])
-
-  .map((item, i) => {
-
-    //create link object to be passed into nav array for ejs template
-    const link = {
-      Link:`${navLinks[i]}`,
-      Text: `${navLinks[i]}`
-    }
-    //push link object onto nav array
-    sortedNav.push(link);
-
-    tagPost[item] = [];
-    postList.map((post) => {
-      if(post.tags.includes(item) ) {
-        tagPost[item].push(post);
-      }
-    });
   });
-
-//add post links to site links
-totalNav[1].Sub = sortedNav;
+});
 
 //sort from newest to oldest
 postList.sort((a, b) => {
@@ -81,30 +78,32 @@ postList.sort((a, b) => {
   return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
 });
 
+
+
+//add post links to site links
+totalNav[1].Sub = sortedNav;
+
+
 //create home page
-const index = fs.readFileSync('src/views/index.ejs', 'utf-8');
-const indexhtml = ejs.render ( index , {
+const indextemplate = fs.readFileSync('src/views/index.ejs', 'utf-8');
+const indexhtml = ejs.render ( indextemplate , {
   nav: totalNav,
   list: postList,
   filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
 });
 writeFile(`docs/index.html`, indexhtml);
 
-
 //create about page
-
-const about = fs.readFileSync('src/views/about.ejs', 'utf-8');
-const abouthtml = ejs.render ( about , {
+const abouttemplate = fs.readFileSync('src/views/about.ejs', 'utf-8');
+const abouthtml = ejs.render ( abouttemplate , {
   nav: totalNav,
   list: postList,
   filename: __dirname.replace('/server', '') + '/src/views/about.ejs'
 });
 writeFile(`docs/about.html`, abouthtml);
 
-
 //create static post files
 postList.map((post) => {
-
   const template = fs.readFileSync('src/views/static.ejs', 'utf-8');
   const html = ejs.render ( template , {
     nav: totalNav,
@@ -134,8 +133,7 @@ console.log(chalk.red.bold("SITE GENERATED"));
 //move images to docs directory
 fs.readdir(`./src/static/img`, (err, images) => {
   //if error in getting
-  if (err) { throw err; }
-
+  if (err) {throw err;}
   images.map((image) => {
     const img = fs.readFileSync(`./src/static/img/${image}`);
     writeFile(`docs/static/img/${image}`, img);
