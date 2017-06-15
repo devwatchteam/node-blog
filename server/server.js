@@ -1,22 +1,25 @@
 import express from 'express';
 import morgan from 'morgan';
-import path from 'path';
+import chalk from 'chalk';
+
 import postRoutes from './routes/post-routes';
 
 //set up express dev server
 const app = express();
-//find out node environment
-const NODE_ENV = process.env.NODE_ENV || 'development';
+
 //change directory context when in dev
-const ROOT_DIR = __dirname.replace('/server', '');
+const ROOT_DIR = __dirname.replace('/server', '/tmp');
+
 //check port
 const port = process.env.PORT || 3000;
 
 // ---------------------
 // -- some middleware --
 // ---------------------
+
 //serve static files
-app.use(express.static(ROOT_DIR + `/src`));
+app.use(express.static(ROOT_DIR));
+
 //use logger to monitor request.
 app.use(morgan('dev'));
 
@@ -31,13 +34,15 @@ app.set('view engine', 'ejs');
 // --     routes      --
 // ---------------------
 
+//handle request with routes
 app.use(`/`, postRoutes);
+
+//any other request redirect to home
 app.use((req, res) => {
-    res.redirect(`/`);
+  res.redirect(`/`);
 });
 
 //have express listen for request
-const server = app.listen(port, () => {
-  const host = server.address().address || 'localhost';
-  console.log('Your awesome blog is listening at http://localhost:%s', port);
+app.listen(port, () => {
+  console.log(chalk.yellow(`Your awesome blog is listening at ${chalk.yellow.underline('http://localhost:%s')}`), port);
 });
