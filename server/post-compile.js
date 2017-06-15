@@ -5,7 +5,7 @@ import mkdirp from 'mkdirp';
 import { dirname } from 'path';
 import chalk from 'chalk';
 
-const postData = require('../src/data/post.json');
+const postData = require('../tmp/data/post.json');
 // const ROOT_DIR = __dirname.replace('/server', '');
 const sortedNav = [];
 const tagPost = {};

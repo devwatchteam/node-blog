@@ -2,6 +2,8 @@ import fs from 'fs';
 import fm from 'front-matter';
 import { markdown as md } from 'markdown';
 import chalk from 'chalk';
+import mkdirp from 'mkdirp';
+import { dirname } from 'path';
 
 (() => {
 
@@ -46,11 +48,17 @@ import chalk from 'chalk';
           return a;
         },[]);
 
+        //using mkdirp to make any missing directories in path for fs.writefile
+        const writeFile = (path, contents) => {
+          mkdirp(dirname(path), (err) => {
+            if (err) { throw err; }
+            fs.writeFileSync(path, contents, 'utf8');
+            console.log(chalk.red.bold(`${postData.filename} SAVED TO POST.JSON`));
+          });
+        };
+        
         //create json file to with post data.
-        fs.writeFile('src/data/post.json', JSON.stringify(postList, null, 2), (err) => {
-          if (err) { throw err; }
-          console.log(chalk.red.bold(`${postData.filename} SAVED TO POST.JSON`));
-        });
+        writeFile('tmp/data/post.json', JSON.stringify(postList, null, 2));
       });
     });
   });
