@@ -11,7 +11,7 @@ const app = express();
 const ROOT_DIR = __dirname.replace('/server', '/tmp');
 
 //check port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 // ---------------------
 // -- some middleware --

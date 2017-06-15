@@ -1,7 +1,0 @@
-node_modules
-www/bundle.js
-dist
-npm-debug.log
-.DS_Store
-public
-.gitignore

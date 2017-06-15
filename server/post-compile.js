@@ -63,6 +63,7 @@ navLinks.map((item, i) => {
   //push link object onto nav array
   sortedNav.push(link);
 
+  //create tag list and push each post with the tag to its list
   tagPost[item] = [];
   postList.map((post) => {
     if(post.tags.includes(item) ) {
@@ -78,11 +79,12 @@ postList.sort((a, b) => {
   return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
 });
 
-
-
 //add post links to site links
 totalNav[1].Sub = sortedNav;
 
+// ---------------------------------
+// -- Render pagess ----------------
+// ---------------------------------
 
 //create home page
 const indextemplate = fs.readFileSync('src/views/index.ejs', 'utf-8');
@@ -127,20 +129,6 @@ navLinks.map((tag) => {
 });
 
 console.log(chalk.red.bold("SITE GENERATED"));
-
-
-
-//move images to docs directory
-fs.readdir(`./src/static/img`, (err, images) => {
-  //if error in getting
-  if (err) {throw err;}
-  images.map((image) => {
-    const img = fs.readFileSync(`./src/static/img/${image}`);
-    writeFile(`docs/static/img/${image}`, img);
-    writeFile(`src/node-blog/static/img/${image}`, img);
-    console.log(chalk.red.bold(`${image} COPIED`));
-  });
-});
 
 module.exports = {
   totalNav,
