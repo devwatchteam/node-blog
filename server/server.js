@@ -24,13 +24,6 @@ app.use(express.static(ROOT_DIR));
 app.use(morgan('dev'));
 
 // ---------------------
-// --   templating    --
-// ---------------------
-
-app.set('views', 'src/views');
-app.set('view engine', 'ejs');
-
-// ---------------------
 // --     routes      --
 // ---------------------
 
@@ -44,5 +37,5 @@ app.use((req, res) => {
 
 //have express listen for request
 app.listen(port, () => {
-  console.log(chalk.bgWhite.blue(`Your awesome blog is listening at ${chalk.bgWhite.blue.underline('http://localhost:%s')}`), port);
+  console.log(chalk.bgWhite.blue(` Your awesome blog is listening at ${chalk.bgWhite.blue.underline('http://localhost:%s')} `), port);
 });

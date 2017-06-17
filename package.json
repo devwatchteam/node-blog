@@ -1,26 +1,25 @@
 {
   "name": "Devwatch",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A Jekyll replacement",
-  "main": "app.js",
   "scripts": {
     "start": "npm run compile & npm-run-all --parallel watch:* & npm run start:dev",
-    "start:dev": "nodemon ./server/server.js -x 'babel-node'",
+    "start:dev": "babel-node ./server/server.js",
     "compile:postjson": "babel-node server/post-info.js",
     "compile:site": "babel-node server/post-compile.js",
     "compile:sass": "babel-node server/style-compile.js",
     "compile:img": "babel-node server/img-transfer.js",
     "compile": "npm run compile:postjson && npm run compile:site",
     "watch:md": "nodemon -C -e md -x 'npm run compile'",
-    "watch:js": "nodemon -C -e js -i server/server.js -x 'npm run compile:site'",
+    "watch:js": "nodemon -C -e js -i server/server.js -i server/post-info.js -x 'npm run compile:site'",
     "watch:scss": "nodemon -C -e scss -x 'npm run compile:sass'",
     "watch:ejs": "nodemon -C -e ejs -x 'npm run compile:site'",
-    "watch:img": "nodemon -C -e jpg,png,svg  --ignore tmp/ --ignore /docs -x 'npm run compile:img'"
+    "watch:img": "nodemon -C -e jpg,png,svg  -i tmp/ -i /docs -x 'npm run compile:img'"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",
   "reponame": "node-blog",
   "author": "David Conner",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "compression": "^1.6.2"
   },

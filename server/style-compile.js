@@ -1,19 +1,9 @@
-import fs from 'fs';
 import sass from 'node-sass';
 import postcss from 'postcss';
 import autoprefixer from 'autoprefixer';
-import mkdirp from 'mkdirp';
-import { dirname } from 'path';
 import chalk from 'chalk';
+import { writeFile } from './utils';
 
-//using mkdirp to make any missing directories in path for fs.writefile
-//make into utils file
-const writeFile = (path, contents) => {
-  mkdirp(dirname(path), (err) => {
-    if (err) { throw err; }
-    fs.writeFileSync(path, contents, 'utf8');
-  });
-}
 
 // render sass and process autoprefixer
 sass.render({
