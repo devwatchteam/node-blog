@@ -5,7 +5,7 @@ import { writeFile } from './utils';
 import chalk from 'chalk';
 import { async as _async_ , await as _await_} from 'asyncawait';
 
-// eslint-disable-next-line
+
 _async_ (() => {
   const postData = require('../tmp/data/post.json');
   const sortedNav = [];
@@ -14,12 +14,13 @@ _async_ (() => {
   let postList = [];
   let pageList = [];
 
-  //create site links for non post pages
+  //create site links that will be populated by post and pages
   const totalNav = [
     {
       Text: `catagories`
     }
   ];
+
 
   // ---------------------------------
   // -- create nav and post objects --
@@ -42,7 +43,7 @@ _async_ (() => {
     return a;
   },[]);
 
-
+  //create subnav with tags and create each tags list
   navLinks.map((item, i) => {
 
     //create link object to be passed into nav array for ejs template
@@ -63,45 +64,42 @@ _async_ (() => {
     });
   });
 
-  //sort from newest to oldest
+  //sort tag list from newest to oldest
   postList.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
   });
 
-  //add post links to site links
+  //add post links to submenu
   totalNav[totalNav.length - 1].Sub = sortedNav;
+
 
   // ---------------------------------
   // -- Render pagess ----------------
   // ---------------------------------
 
-
-  //get pages
-  // eslint-disable-next-line
+  //get non post pages
   _await_ (fs.readdir(`./src/views/pages/`, (err, pages) => {
 
-    _async_ (() => {
-      //create links for pages navigation
-      pages.map(page => {
-        const pageLink = page.replace(/\.[^/.]+$/, "");
-        const link = {
-          Link:`${pageLink}`,
-          Text: `${pageLink}`
-        }
-        pageList.push(link);
-      });
-
-      //add page list to site navigation
-      totalNav.unshift(...pageList);
-    })()
-
-
-    //create pages
+    //create links for non post page's navigation
     pages.map(page => {
       const pageLink = page.replace(/\.[^/.]+$/, "");
-      console.log("PAGE: ", page);
+      const link = {
+        Link:`${pageLink}`,
+        Text: `${pageLink}`
+      }
+      pageList.push(link);
+    });
+
+    //add non post page list to site navigation
+    totalNav.unshift(...pageList);
+
+    //create non post pages
+    pages.map(page => {
+
+      //remove file ext.
+      const pageLink = page.replace(/\.[^/.]+$/, "");
       const template = fs.readFileSync(`src/views/pages/${page}`, 'utf-8');
       const html = ejs.render ( template , {
         nav: totalNav,
@@ -111,7 +109,6 @@ _async_ (() => {
       writeFile(`docs/${pageLink}.html`, html);
     });
   }));
-
 
   //create home page
   const indextemplate = fs.readFileSync('src/views/index.ejs', 'utf-8');
