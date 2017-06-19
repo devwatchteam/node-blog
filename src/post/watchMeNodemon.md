@@ -1,6 +1,6 @@
 ---
 title: Nodemon!
-description: Some fly ass shit!
+description: Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade. Staying on the bleeding edge can get tiresome for as soon as you update Webpack and try to compile you get an error. The good news?
 author: "@Dave_Conner"
 tags: [javascript]
 date: March 8, 2017

@@ -1,6 +1,6 @@
 ---
 title: Dope on a muh fuckin rope mang!
-description: Some fly ass shit!
+description: So how can we get our webpack config back into working shape? For starters we must change `module.loaders` to `module.rules`.  
 author: "@Dave_Conner"
 tags: [javascript, webpack]
 date: March 8, 2017

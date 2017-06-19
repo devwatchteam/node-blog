@@ -1,9 +1,11 @@
 @import 'utils';
 
-:root { font-size: 1em; }
+:root {
+  font-size: 1em;
+}
 
 body {
-  color: $gray-dark;
+  color: $gray;
   font-family: $Lato;
   font-weight: $normal;
   line-height: 1.5;
@@ -65,4 +67,6 @@ p {
   }
 }
 
-em { font-weight: $bold; }
+em {
+  font-weight: $bold;
+}
