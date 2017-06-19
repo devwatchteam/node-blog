@@ -4,13 +4,13 @@
 <!-- /head -->
 
 <!-- body -->
+
+<main class="wrap wrap-main">
   <%- include partials/header.ejs %>
-  <div id="mount">
-    <h1><%-JSON.stringify(post.title).replace(/\"/g, "")%></h1>
+    <h2 class="static-header"><%-JSON.stringify(post.title).replace(/\"/g, "")%></h2>
     <a href="twitter.com/<%-JSON.stringify(post.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.author).replace(/\"/g, "")%></a>
     <%-body%>
-  </div>
-  </div>
+</main>
 
 <!-- footer -->
 <%- include partials/footer.ejs %>

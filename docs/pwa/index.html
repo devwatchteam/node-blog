@@ -11,102 +11,110 @@
 <!-- /head -->
 
 <!-- body -->
+<main class="wrap wrap-main">
   <header class='site-header'>
-  <h1 class="site-logo"><a class="site-logo-link" href="/node-blog">DW</a></h1>
-  <nav class="nav site-nav">
-    <ul class="site-nav-list">
-      
+  <div class="wrap wrap-head">
+    <h1 class="site-logo"><a class="site-logo-link" href="/node-blog">DW</a></h1>
+    <nav class="nav site-nav">
+      <ul class="site-nav-list">
         
-          <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="/node-blog/about">about</a></li>
+          
+            <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="/node-blog/about">about</a></li>
+          
         
-      
+          
+            <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="/node-blog/cool">cool</a></li>
+          
         
-          <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="/node-blog/cool">cool</a></li>
+          
+            <li class="site-nav-list-item">
+              <a class="site-nav-list-item-link toggle" href="/">catagories</a>
+              <ul class="site-nav-sub-list">
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/css">css</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/javascript">javascript</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/markdown">markdown</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/pwa">pwa</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/sass">sass</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/webpack">webpack</a></li>
+                
+              </ul>
+            </li>
+          
         
-      
-        
-          <li class="site-nav-list-item">
-            <a class="site-nav-list-item-link toggle" href="/">catagories</a>
-            <ul class="site-nav-sub-list">
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/css">css</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/javascript">javascript</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/markdown">markdown</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/pwa">pwa</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/sass">sass</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/webpack">webpack</a></li>
-              
-            </ul>
-          </li>
-        
-      
-    </ul>
-  </nav>
+      </ul>
+    </nav>
+  </div>
 </header>
 
   <div id="mount">
-  <ul class="post-list">
-    
-      <li>
-        <a href="/node-blog/post/webpack2-migration">
-          <date>March 10, 2017</date>
-          <h2>Migrating your Webpack config to Webpack V2</h2>
-          <p>Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade.</p>
-          <ul>
-            
-              <li>
-                <a href="/node-blog/javascript">
-                  javascript
-                </a>
-              </li>
-            
-              <li>
-                <a href="/node-blog/pwa">
-                  pwa
-                </a>
-              </li>
-            
-          </ul>
-        </a>
-      </li>
-    
-      <li>
-        <a href="/node-blog/post/bootstr-app">
-          <date>Nov 22, 2016</date>
-          <h2>BootstrApp!</h2>
-          <p>BootstrApp is a collection of best practices and helper functions that will help make your mobile application feel native and save you time in development.</p>
-          <ul>
-            
-              <li>
-                <a href="/node-blog/pwa">
-                  pwa
-                </a>
-              </li>
-            
-              <li>
-                <a href="/node-blog/css">
-                  css
-                </a>
-              </li>
-            
-              <li>
-                <a href="/node-blog/sass">
-                  sass
-                </a>
-              </li>
-            
-          </ul>
-        </a>
-      </li>
-    
-  </ul>
+  <div class="wrap wrap-body">
+    <ul class="post-list">
+      
+        <li class="post-list-item">
+          <a class="post-link" href="/node-blog/post/bootstr-app">
+            <date class="post-date">Nov 22, 2016</date>
+            <h2 class="post-header">BootstrApp!</h2>
+            <p class="post-description">BootstrApp is a collection of best practices and helper functions that will help make your mobile application feel native and save you time in development.</p>
+          </a>
+            <ul class="post-tags-list">
+              
+                <li>
+                  <a class="post-tags" href="/node-blog/pwa">
+                    pwa
+                  </a>
+                </li>
+              
+                <li>
+                  <a class="post-tags" href="/node-blog/css">
+                    css
+                  </a>
+                </li>
+              
+                <li>
+                  <a class="post-tags" href="/node-blog/sass">
+                    sass
+                  </a>
+                </li>
+              
+            </ul>
+
+        </li>
+      
+        <li class="post-list-item">
+          <a class="post-link" href="/node-blog/post/webpack2-migration">
+            <date class="post-date">March 10, 2017</date>
+            <h2 class="post-header">Migrating your Webpack config to Webpack V2</h2>
+            <p class="post-description">Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade.</p>
+          </a>
+            <ul class="post-tags-list">
+              
+                <li>
+                  <a class="post-tags" href="/node-blog/javascript">
+                    javascript
+                  </a>
+                </li>
+              
+                <li>
+                  <a class="post-tags" href="/node-blog/pwa">
+                    pwa
+                  </a>
+                </li>
+              
+            </ul>
+
+        </li>
+      
+    </ul>
+  </div>
 </div>
 
+</main>
 <!-- /body -->
 
 <!-- footer -->

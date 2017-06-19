@@ -95,7 +95,6 @@ _async_ (() => {
 
       //add page list to site navigation
       totalNav.unshift(...pageList);
-      console.log("inside: ", totalNav);
     })()
 
 
@@ -113,7 +112,6 @@ _async_ (() => {
     });
   }));
 
-  console.log(totalNav);
 
   //create home page
   const indextemplate = fs.readFileSync('src/views/index.ejs', 'utf-8');

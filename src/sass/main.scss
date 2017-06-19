@@ -1,5 +1,5 @@
-@import 'utils/base.scss';
-@import 'components/_header.scss';
+@import 'utils/base';
+@import 'components/header';
 
 :root {
   font-size: 99%;
@@ -12,4 +12,80 @@ body {
   margin: 0;
   width: 100%;
   z-index: 100;
+}
+
+a {
+  color: $pink;
+}
+
+
+.wrap {
+  display: flex;
+  margin: 0 auto;
+  max-width: rem(800);
+  padding: 0 1em;
+  width: 100%;
+
+  &-main {
+    flex-direction: column;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  &-head {
+    @include bp(600, max-width) {
+      padding-right: 0;
+    }
+  }
+
+  &-body {
+    flex-direction: column;
+  }
+}
+
+.post {
+
+  &-list-item {
+    margin-bottom: 3rem;
+  }
+
+  &-link {
+    display: block;
+    overflow: hidden;
+  }
+
+  &-date {
+    color: $blue-new;
+    display: block;
+    margin-bottom: 0.25em;
+  }
+
+  &-header {
+    margin-bottom: 0.25em;
+  }
+
+  &-description {
+    color: $gray;
+    margin-bottom: 1.85em;
+  }
+
+  &-tags-list {
+    display: flex;
+  }
+
+  &-tags-list li {
+    display: flex;
+
+    & + li {
+      margin-left: 0.5em;
+    }
+  }
+
+  &-tags {
+    background: $blue-new;
+    border-radius: 0.15em;
+    color: $white;
+    display: block;
+    padding: 0.15em 1em;
+  }
 }

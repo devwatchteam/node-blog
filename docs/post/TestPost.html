@@ -12,46 +12,49 @@
 <!-- /head -->
 
 <!-- body -->
+
+<main class="wrap wrap-main">
   <header class='site-header'>
-  <h1 class="site-logo"><a class="site-logo-link" href="/node-blog">DW</a></h1>
-  <nav class="nav site-nav">
-    <ul class="site-nav-list">
-      
+  <div class="wrap wrap-head">
+    <h1 class="site-logo"><a class="site-logo-link" href="/node-blog">DW</a></h1>
+    <nav class="nav site-nav">
+      <ul class="site-nav-list">
         
-          <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="/node-blog/about">about</a></li>
+          
+            <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="/node-blog/about">about</a></li>
+          
         
-      
+          
+            <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="/node-blog/cool">cool</a></li>
+          
         
-          <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="/node-blog/cool">cool</a></li>
+          
+            <li class="site-nav-list-item">
+              <a class="site-nav-list-item-link toggle" href="/">catagories</a>
+              <ul class="site-nav-sub-list">
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/css">css</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/javascript">javascript</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/markdown">markdown</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/pwa">pwa</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/sass">sass</a></li>
+                
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/webpack">webpack</a></li>
+                
+              </ul>
+            </li>
+          
         
-      
-        
-          <li class="site-nav-list-item">
-            <a class="site-nav-list-item-link toggle" href="/">catagories</a>
-            <ul class="site-nav-sub-list">
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/css">css</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/javascript">javascript</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/markdown">markdown</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/pwa">pwa</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/sass">sass</a></li>
-              
-                <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/node-blog/webpack">webpack</a></li>
-              
-            </ul>
-          </li>
-        
-      
-    </ul>
-  </nav>
+      </ul>
+    </nav>
+  </div>
 </header>
 
-  <div id="mount">
-    <h1>Some Real ish!!</h1>
+    <h2 class="static-header">Some Real ish!!</h2>
     <a href="twitter.com/@Dave_Conner">@Dave_Conner</a>
     <h1>Webpack v.2</h1>
 
@@ -195,8 +198,7 @@ console.log(cube(5)); // 125
 </code></p>
 
 <p>Now Webpack can handle these imports and is able to statically analyze them. The next step to achieve our tree shake is the minification of our bundle for production. This step will remove any unused code from our build. That is it! With small apps this may not provide huge wins but when using large libraries this could provide significant savings in bundled bytes.</p>
-  </div>
-  </div>
+</main>
 
 <!-- footer -->
   <!-- <script src="/node-blog/static/js/index_bundled.js"</script> -->
