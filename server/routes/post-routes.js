@@ -20,7 +20,7 @@ _async_ (() => {
     //create links for pages navigation
     pages.map(page => {
       const pageLink = page.replace(/\.[^/.]+$/, "");
-      router.get(`/${process.env.npm_package_reponame}/${pageLink}`, (req, res) => {
+      router.get(`/${process.env.npm_package_reponame}/${pageLink}.html`, (req, res) => {
         res.sendFile(ROOT_DIR + `/${pageLink}.html`);
       });
 
