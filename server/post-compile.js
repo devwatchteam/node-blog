@@ -1,10 +1,11 @@
 // import express from 'express';
 import fs from 'fs';
 import ejs from 'ejs';
-import { writeFile } from './utils';
 import chalk from 'chalk';
 import { async as _async_ , await as _await_} from 'asyncawait';
 
+import { writeFile } from './utils';
+import paginate from './paginate';
 
 _async_ (() => {
 
@@ -166,12 +167,35 @@ _async_ (() => {
 
   //create home page
   const indextemplate = fs.readFileSync('src/views/index.ejs', 'utf-8');
-  const indexhtml = ejs.render ( indextemplate , {
-    nav: totalNav,
-    list: postObjectList,
-    filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
+  //todo: change 11 to a reference in a config file
+  // if (postObjectList.length < 11) {
+  //   const indexhtml = ejs.render ( indextemplate , {
+  //     nav: totalNav,
+  //     list: postObjectList,
+  //     filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
+  //   });
+  //   writeFile(`docs/index.html`, indexhtml);
+  // } else {
+  const paginatedList = paginate(postObjectList);
+  // create each page for paginated list
+  paginatedList.map((page, i) => {
+    const indexhtml = ejs.render ( indextemplate , {
+      nav: totalNav,
+      page: page.page,
+      pages: page.pages,
+      list: page.list,
+      filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
+    });
+
+    if (page.page === 0) {
+      writeFile(`docs/index.html`, indexhtml);
+    } else {
+      writeFile(`docs/index-${i}.html`, indexhtml);
+    }
+
   });
-  writeFile(`docs/index.html`, indexhtml);
+  // }
+
 
   console.log(chalk.red.bold("SITE GENERATED"));
 })();

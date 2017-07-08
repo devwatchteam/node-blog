@@ -12,7 +12,14 @@ const ROOT_DIR = __dirname.replace('/server/routes', '/docs');
 _async_ (() => {
   //Home page. render list from post directory
   router.get(`/`, (req, res) => {
-    res.sendFile(ROOT_DIR + `/index.html`);
+    if (!req.query.page) {
+      console.log("YOOOOOOO: ", req.query.page);
+      res.sendFile(ROOT_DIR + `/index.html`);
+    } else {
+      console.log("HEYYYYYY");
+      res.sendFile(ROOT_DIR + `/index-${req.query.page}.html`);
+    }
+
   });
 
   // pages
