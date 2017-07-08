@@ -29,6 +29,7 @@ a {
   &-main {
     flex-direction: column;
     max-width: 100%;
+    overflow-x: hidden;
     padding: 0;
   }
 
@@ -87,5 +88,20 @@ a {
     color: $white;
     display: block;
     padding: 0.15em 1em;
+  }
+}
+
+//Pagination links
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+
+  & li + li {
+    margin-left: 1em;
+  }
+
+  &-link_active {
+    border-bottom: rem(1) solid;
   }
 }

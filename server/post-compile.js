@@ -1,92 +1,110 @@
 // import express from 'express';
 import fs from 'fs';
 import ejs from 'ejs';
-import { writeFile } from './utils';
 import chalk from 'chalk';
 import { async as _async_ , await as _await_} from 'asyncawait';
 
+import { writeFile } from './utils';
+import paginate from './paginate';
 
 _async_ (() => {
-  const postData = require('../tmp/data/post.json');
-  const sortedNav = [];
-  const tagPost = {};
-  let navLinks = [];
-  let postList = [];
-  let pageList = [];
 
-  //create site links that will be populated by post and pages
-  const totalNav = [
-    {
-      Text: `catagories`
-    }
-  ];
+  //navigation array passed to all templates
+  let totalNav = [];
+
+  //array of all post objects
+  let postObjectList = [];
+
+  //array of post tags ex. ['css', 'javascript', 'sass']
+  let postTags = [];
+
+  //tag object that holds array of post for each tag .ex css: [{}, {}],
+  const tagPost = {};
+
+  //array of post tag link objects
+  const tagLinks = [];
 
 
   // ---------------------------------
   // -- create nav and post objects --
   // ---------------------------------
 
-  //get list of tags and individual post objects
-  Object.keys(postData).map(poster => {
-    navLinks = navLinks.concat(postData[poster].tags);
-    postList = postList.concat(postData[poster]);
-  });
+  //create check if post.json exist before creating links
+  if (fs.existsSync('./tmp/data/post.json')) {
 
-  //alphabatize
-  navLinks.sort();
+    //json used for tag nav and post creation
+    const postData = require('../tmp/data/post.json');
 
-  //remove dupes
-  navLinks = navLinks.reduce((a, b) => {
-    if (a.indexOf(b) < 0 ) {
-      a.push(b);
-    }
-    return a;
-  },[]);
-
-  //create subnav with tags and create each tags list
-  navLinks.map((item, i) => {
-
-    //create link object to be passed into nav array for ejs template
-    const link = {
-      Link:`${navLinks[i]}`,
-      Text: `${navLinks[i]}`
-    }
-
-    //push link object onto nav array
-    sortedNav.push(link);
-
-    //create tag list and push each post with the tag to its list
-    tagPost[item] = [];
-    postList.map(post => {
-      if(post.tags.includes(item) ) {
-        tagPost[item].push(post);
+    //add category link that will contain subnav
+    totalNav = [
+      {
+        Text: `catagories`
       }
+    ];
+
+    //get list of tags and individual post objects
+    Object.keys(postData).map(poster => {
+      postTags = postTags.concat(postData[poster].tags);
+      postObjectList = postObjectList.concat(postData[poster]);
     });
-  });
 
-  //sort tag list from newest to oldest
-  postList.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
-  });
+    //alphabatize
+    postTags.sort();
 
-  //add post links to submenu
-  totalNav[totalNav.length - 1].Sub = sortedNav;
+    //remove dupes
+    postTags = postTags.reduce((a, b) => {
+      if (a.indexOf(b) < 0 ) {
+        a.push(b);
+      }
+      return a;
+    },[]);
 
+    //create subnav with tags and create each tags list
+    postTags.map((item, i) => {
 
-  // ---------------------------------
-  // -- Render pagess ----------------
-  // ---------------------------------
+      //create link object to be passed into nav array for ejs template
+      const link = {
+        Link:`${postTags[i]}`,
+        Text: `${postTags[i]}`
+      }
 
-  //get non post pages
+      //push link object onto nav array
+      tagLinks.push(link);
+
+      //create tag list and push each post with the tag to its list
+      tagPost[item] = [];
+      postObjectList.map(post => {
+        if(post.tags.includes(item) ) {
+          tagPost[item].push(post);
+        }
+      });
+    });
+
+    //sort tag list from newest to oldest
+    postObjectList.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return ( dateA < dateB) ? 1 : (dateA > dateB) ? -1 : 0;
+    });
+
+    //add post links to submenu
+    totalNav[totalNav.length - 1].Sub = tagLinks;
+
+  } else {
+    postObjectList = null;
+  }
+
+  //get links for non post pages
   _await_ (fs.readdir(`./src/views/pages/`, (err, pages) => {
+
+    //array of static page link objects
+    const pageList = [];
 
     //create links for non post page's navigation
     pages.map(page => {
       const pageLink = page.replace(/\.[^/.]+$/, "");
       const link = {
-        Link:`${pageLink}`,
+        Link:`${pageLink}.html`,
         Text: `${pageLink}`
       }
       pageList.push(link);
@@ -94,6 +112,44 @@ _async_ (() => {
 
     //add non post page list to site navigation
     totalNav.unshift(...pageList);
+  }));
+
+
+
+  // ---------------------------------
+  // -- Render pagess ----------------
+  // ---------------------------------
+
+  //render templates for pages and post
+  if (fs.existsSync('./tmp/data/post.json')) {
+
+    //create static post files
+    postObjectList.map(post => {
+      const template = fs.readFileSync('src/views/static.ejs', 'utf-8');
+      const html = ejs.render ( template , {
+        nav: totalNav,
+        post: post,
+        body: post.body,
+        filename: __dirname.replace('/server', '') + '/src/views/static.ejs'
+      });
+      writeFile(`docs/post/${post.filename}.html`, html);
+    });
+
+    //create tag list pages
+    postTags.map(tag => {
+      const template = fs.readFileSync('src/views/index.ejs', 'utf-8');
+      const html = ejs.render ( template , {
+        title: "sup dunny",
+        nav: totalNav,
+        list: tagPost[tag],
+        filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
+      });
+      writeFile(`docs/${tag}/index.html`, html);
+    });
+  }
+
+  //get non post pages
+  _await_ (fs.readdir(`./src/views/pages/`, (err, pages) => {
 
     //create non post pages
     pages.map(page => {
@@ -103,7 +159,6 @@ _async_ (() => {
       const template = fs.readFileSync(`src/views/pages/${page}`, 'utf-8');
       const html = ejs.render ( template , {
         nav: totalNav,
-        list: postList,
         filename: __dirname.replace('/server', '') + `/src/views/pages/${page}`
       });
       writeFile(`docs/${pageLink}.html`, html);
@@ -112,36 +167,35 @@ _async_ (() => {
 
   //create home page
   const indextemplate = fs.readFileSync('src/views/index.ejs', 'utf-8');
-  const indexhtml = ejs.render ( indextemplate , {
-    nav: totalNav,
-    list: postList,
-    filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
-  });
-  writeFile(`docs/index.html`, indexhtml);
-
-  //create static post files
-  postList.map(post => {
-    const template = fs.readFileSync('src/views/static.ejs', 'utf-8');
-    const html = ejs.render ( template , {
+  //todo: change 11 to a reference in a config file
+  // if (postObjectList.length < 11) {
+  //   const indexhtml = ejs.render ( indextemplate , {
+  //     nav: totalNav,
+  //     list: postObjectList,
+  //     filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
+  //   });
+  //   writeFile(`docs/index.html`, indexhtml);
+  // } else {
+  const paginatedList = paginate(postObjectList);
+  // create each page for paginated list
+  paginatedList.map((page, i) => {
+    const indexhtml = ejs.render ( indextemplate , {
       nav: totalNav,
-      post: post,
-      body: post.body,
-      filename: __dirname.replace('/server', '') + '/src/views/static.ejs'
-    });
-    writeFile(`docs/post/${post.filename}.html`, html);
-  });
-
-  //create tag post files
-  navLinks.map(tag => {
-    const template = fs.readFileSync('src/views/index.ejs', 'utf-8');
-    const html = ejs.render ( template , {
-      title: "sup dunny",
-      nav: totalNav,
-      list: tagPost[tag],
+      page: page.page,
+      pages: page.pages,
+      list: page.list,
       filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
     });
-    writeFile(`docs/${tag}/index.html`, html);
+
+    if (page.page === 0) {
+      writeFile(`docs/index.html`, indexhtml);
+    } else {
+      writeFile(`docs/index-${i}.html`, indexhtml);
+    }
+
   });
+  // }
+
 
   console.log(chalk.red.bold("SITE GENERATED"));
 })();
