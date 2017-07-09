@@ -23,28 +23,28 @@
       </li>
     <%}%>
   </ul>
-  <% if(typeof pages !== 'undefined' && pages > 1){ %>
+  <% if(typeof pages !== 'undefined' && typeof tag !== 'undefined' && pages > 1){ %>
 
     <ul class="pagination">
       <% if(page !== 0 && page !== 1){
         var prev = page - 1;
       %>
-        <li><a class="pagination-link" href=<%=`/?page=${prev}`%>>&#60;</a></li>
+        <li><a class="pagination-link" href=<%=`?page=${prev}`%>>&#60;</a></li>
 
       <%} else if (page !== 0) {%>
-        <li><a class="pagination-link" href="/">&#60;</a></li>
+        <li><a class="pagination-link" href=<%=`?page=0`%>>&#60;</a></li>
       <%}%>
 
       <% for(var i = 0; i < pages; i++) {%>
         <li>
           <% if(i === 0 && i === page){ %>
-          <a class="pagination-link pagination-link_active" href="/">
+          <a class="pagination-link pagination-link_active" href=<%=`?page=0`%>>
           <%} else if (i === page) {%>
-            <a class="pagination-link pagination-link_active" href=<%=`/?page=${i}`%>>
+            <a class="pagination-link pagination-link_active" href=<%=`?page=${i}`%>>
           <%} else if (i === 0 ) {%>
-            <a class="pagination-link" href="/">
+            <a class="pagination-link" href=<%=`?page=0`%>>
           <%} else {%>
-            <a class="pagination-link" href=<%=`/?page=${i}`%>>
+            <a class="pagination-link" href=<%=`?page=${i}`%>>
           <%}%>
             <%=i + 1%>
           </a>
@@ -54,7 +54,7 @@
       <% if(page + 1 !== pages){
         var next = page + 1;
       %>
-        <li><a class="pagination-link" href=<%=`/?page=${next}`%>>&#62;</a></li>
+        <li><a class="pagination-link" href=<%=`?page=${next}`%>>&#62;</a></li>
       <%}%>
     </ul>
   <%}%>
