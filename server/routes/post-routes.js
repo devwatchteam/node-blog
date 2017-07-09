@@ -13,10 +13,10 @@ _async_ (() => {
   //Home page. render list from post directory
   router.get(`/`, (req, res) => {
     if (!req.query.page) {
-      console.log("YOOOOOOO: ", req.query.page);
+      res.sendFile(ROOT_DIR + `/index.html`);
+    } else if (req.query.page == 0){
       res.sendFile(ROOT_DIR + `/index.html`);
     } else {
-      console.log("HEYYYYYY");
       res.sendFile(ROOT_DIR + `/index-${req.query.page}.html`);
     }
 
@@ -35,8 +35,15 @@ _async_ (() => {
   }));
 
   //render list from tags
-  router.get(`/${process.env.npm_package_reponame}/:tag`, (req, res) => {
-    res.sendFile(ROOT_DIR + `/${req.params.tag}/index.html`);
+  router.get(`/${process.env.npm_package_reponame}/:tag*`, (req, res) => {
+    if (!req.query.page) {
+      res.sendFile(ROOT_DIR + `/${req.params.tag}/index.html`);
+    } else if (req.query.page == 0){
+      res.sendFile(ROOT_DIR + `/${req.params.tag}/index.html`);
+    } else {
+      res.sendFile(ROOT_DIR + `/${req.params.tag}/index-${req.query.page}.html`);
+    }
+
   });
 
   //render single post

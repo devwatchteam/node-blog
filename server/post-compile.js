@@ -137,14 +137,35 @@ _async_ (() => {
 
     //create tag list pages
     postTags.map(tag => {
+      const paginatedTagPostObjectList = paginate(tagPost[tag]);
       const template = fs.readFileSync('src/views/index.ejs', 'utf-8');
-      const html = ejs.render ( template , {
-        title: "sup dunny",
-        nav: totalNav,
-        list: tagPost[tag],
-        filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
+      // create each page for paginated list
+      paginatedTagPostObjectList.map((page, i) => {
+        const taghtml = ejs.render ( template , {
+          nav: totalNav,
+          tag: tag,
+          page: page.page,
+          pages: page.pages,
+          list: page.list,
+          filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
+        });
+
+        if (page.page === 0) {
+          writeFile(`docs/${tag}/index.html`, taghtml);
+        } else {
+          writeFile(`docs/${tag}/index-${i}.html`, taghtml);
+        }
+
       });
-      writeFile(`docs/${tag}/index.html`, html);
+
+      // const template = fs.readFileSync('src/views/index.ejs', 'utf-8');
+      // const html = ejs.render ( template , {
+      //   title: "sup dunny",
+      //   nav: totalNav,
+      //   list: tagPost[tag],
+      //   filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
+      // });
+      // writeFile(`docs/${tag}/index.html`, html);
     });
   }
 
@@ -167,20 +188,14 @@ _async_ (() => {
 
   //create home page
   const indextemplate = fs.readFileSync('src/views/index.ejs', 'utf-8');
-  //todo: change 11 to a reference in a config file
-  // if (postObjectList.length < 11) {
-  //   const indexhtml = ejs.render ( indextemplate , {
-  //     nav: totalNav,
-  //     list: postObjectList,
-  //     filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
-  //   });
-  //   writeFile(`docs/index.html`, indexhtml);
-  // } else {
-  const paginatedList = paginate(postObjectList);
+
+  const paginatedPostObjectList = paginate(postObjectList);
+
   // create each page for paginated list
-  paginatedList.map((page, i) => {
+  paginatedPostObjectList.map((page, i) => {
     const indexhtml = ejs.render ( indextemplate , {
       nav: totalNav,
+      tag: '',
       page: page.page,
       pages: page.pages,
       list: page.list,
