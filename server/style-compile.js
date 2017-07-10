@@ -23,7 +23,7 @@ sass.render({
       writeFile(`docs/static/css/main.css`, result.css);
 
       //write for dev
-      writeFile(`tmp/${process.env.npm_package_reponame}/static/css/main.css`, result.css);
+      // writeFile(`tmp${process.env.npm_package_reponame}/static/css/main.css`, result.css);
       console.log(chalk.red.bold(`CSS COMPILED`));
     });
 });

@@ -1,6 +1,6 @@
 <header class='site-header'>
   <div class="wrap wrap-head">
-    <h1 class="site-logo"><a class="site-logo-link" href="/<%-process.env.npm_package_reponame%>">DW</a></h1>
+    <h1 class="site-logo"><a class="site-logo-link" href="<%-process.env.npm_package_reponame%>/">DW</a></h1>
     <nav class="nav site-nav">
       <ul class="site-nav-list">
         <% for(var i = 0; i < nav.length; i++) {%>
@@ -9,12 +9,12 @@
               <a class="site-nav-list-item-link toggle" href="/"><%=nav[i].Text%></a>
               <ul class="site-nav-sub-list">
                 <% for(var j = 0; j < nav[i].Sub.length; j++) {%>
-                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="/<%-process.env.npm_package_reponame%>/<%=nav[i].Sub[j].Link%>"><%=nav[i].Sub[j].Text%></a></li>
+                  <li class="site-nav-sub-list-item"><a class="site-nav-sub-list-item-link" href="<%-process.env.npm_package_reponame%>/<%=nav[i].Sub[j].Link%>"><%=nav[i].Sub[j].Text%></a></li>
                 <%}%>
               </ul>
             </li>
           <% } else{ %>
-            <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="/<%-process.env.npm_package_reponame%>/<%=nav[i].Link%>"><%=nav[i].Text%></a></li>
+            <li class="site-nav-list-item"><a class="site-nav-list-item-link" href="<%-process.env.npm_package_reponame%>/<%=nav[i].Link%>"><%=nav[i].Text%></a></li>
           <% } %>
         <%}%>
       </ul>
