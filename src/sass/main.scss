@@ -44,6 +44,10 @@ a {
     flex: 2;
     flex-direction: column;
   }
+
+  &-footer {
+    justify-content: space-between;
+  }
 }
 
 .post {
@@ -105,5 +109,21 @@ a {
 
   &-link_active {
     border-bottom: rem(1) solid;
+  }
+}
+
+.site-footer {
+  border-top: rem(1) solid $gray-lightest;
+  padding: 2em 1em;
+  width: 100%;
+
+  &-widget {
+    flex-basis: calc(100%/3);
+  }
+}
+
+.widget {
+  &-social {
+    flex-basis: auto;
   }
 }
