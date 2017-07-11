@@ -9,7 +9,7 @@
     "compile:site": "babel-node server/post-compile.js",
     "compile:sass": "babel-node server/style-compile.js",
     "compile:img": "babel-node server/img-transfer.js",
-    "compile:build": "npm run compile:postjson && npm run compile:site && npm run compile:sass",
+    "compile:build": "npm run compile:postjson && npm run compile:sass && npm run compile:img && npm run compile:site",
     "compile": "npm run compile:postjson && npm run compile:site",
     "watch:md": "nodemon -C -e md -x 'npm run compile'",
     "watch:js": "nodemon -C -e js -i server/server.js -i server/post-info.js -x 'npm run compile:site'",
@@ -18,7 +18,7 @@
     "watch:img": "nodemon -C -e jpg,png,svg  -i tmp/ -i /docs -x 'npm run compile:img'"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",
-  "reponame": "/node-blog",
+  "reponame": "",
   "author": "David Conner",
   "license": "MIT",
   "dependencies": {
