@@ -1,9 +1,10 @@
+<% var repo = process.env.npm_package_reponame; %>
 
 <div class="wrap wrap-body">
   <ul class="post-list">
     <% for(var i = 0; i < list.length; i++) {%>
       <li class="post-list-item">
-        <a class="post-link" href="/<%-process.env.npm_package_reponame%>/post/<%=list[i].filename%>">
+        <a class="post-link" href="<%-repo%>/post/<%=list[i].filename%>.html">
           <date class="post-date"><%=list[i].date.replace(/\"/g, "")%></date>
           <h2 class="post-header"><%=list[i].title.replace(/\"/g, "")%></h2>
           <p class="post-description"><%=list[i].description.replace(/\"/g, "")%></p>
@@ -13,7 +14,7 @@
               const tags = list[i].tags;
               for(let i = 0; i < tags.length; i++) {%>
               <li>
-                <a class="post-tags" href="/<%-process.env.npm_package_reponame%>%>/<%=tags[i]%>">
+                <a class="post-tags" href="<%-repo%>/<%=tags[i]%>">
                   <%=tags[i].replace(/\"/g, "")%>
                 </a>
               </li>
@@ -29,22 +30,22 @@
       <% if(page !== 0 && page !== 1){
         var prev = page - 1;
       %>
-        <li><a class="pagination-link" href=<%=`?page=${prev}`%>>&#60;</a></li>
+        <li><a class="pagination-link" href=<%=`${repo}${tag}index-${prev}.html`%>>&#60;</a></li>
 
       <%} else if (page !== 0) {%>
-        <li><a class="pagination-link" href=<%=`?page=0`%>>&#60;</a></li>
+        <li><a class="pagination-link" href=<%=`${repo}${tag}index.html`%>>&#60;</a></li>
       <%}%>
 
       <% for(var i = 0; i < pages; i++) {%>
         <li>
           <% if(i === 0 && i === page){ %>
-          <a class="pagination-link pagination-link_active" href=<%=`?page=0`%>>
+          <a class="pagination-link pagination-link_active" href=<%=`${repo}${tag}index.html`%>>
           <%} else if (i === page) {%>
-            <a class="pagination-link pagination-link_active" href=<%=`?page=${i}`%>>
+            <a class="pagination-link pagination-link_active" href=<%=`${repo}${tag}index-${i}.html`%>>
           <%} else if (i === 0 ) {%>
-            <a class="pagination-link" href=<%=`?page=0`%>>
+            <a class="pagination-link" href=<%=`${repo}${tag}index.html`%>>
           <%} else {%>
-            <a class="pagination-link" href=<%=`?page=${i}`%>>
+            <a class="pagination-link" href=<%=`${repo}${tag}index-${i}.html`%>>
           <%}%>
             <%=i + 1%>
           </a>
@@ -54,7 +55,7 @@
       <% if(page + 1 !== pages){
         var next = page + 1;
       %>
-        <li><a class="pagination-link" href=<%=`?page=${next}`%>>&#62;</a></li>
+        <li><a class="pagination-link" href=<%=`${repo}${tag}index-${next}.html`%>>&#62;</a></li>
       <%}%>
     </ul>
   <%}%>

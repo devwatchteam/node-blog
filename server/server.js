@@ -8,7 +8,7 @@ import postRoutes from './routes/post-routes';
 const app = express();
 
 //change directory context when in dev
-const ROOT_DIR = __dirname.replace('/server', '/tmp');
+const ROOT_DIR = __dirname.replace('/server', '/docs');
 
 //check port
 const port = process.env.PORT || 5000;

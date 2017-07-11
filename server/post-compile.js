@@ -143,7 +143,7 @@ _async_ (() => {
       paginatedTagPostObjectList.map((page, i) => {
         const taghtml = ejs.render ( template , {
           nav: totalNav,
-          tag: tag,
+          tag: "/" + tag + "/",
           page: page.page,
           pages: page.pages,
           list: page.list,
@@ -195,7 +195,7 @@ _async_ (() => {
   paginatedPostObjectList.map((page, i) => {
     const indexhtml = ejs.render ( indextemplate , {
       nav: totalNav,
-      tag: '',
+      tag: '/',
       page: page.page,
       pages: page.pages,
       list: page.list,
