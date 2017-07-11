@@ -18,7 +18,7 @@
     "watch:img": "nodemon -C -e jpg,png,svg  -i tmp/ -i /docs -x 'npm run compile:img'"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",
-  "reponame": "",
+  "reponame": "/node-blog",
   "author": "David Conner",
   "license": "MIT",
   "dependencies": {
