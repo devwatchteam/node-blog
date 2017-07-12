@@ -219,9 +219,5 @@ _async_ (() => {
     writeFile(`docs/index.html`, indexhtml);
   }
 
-
-  // }
-
-
   console.log(chalk.red.bold("SITE GENERATED"));
 })();
