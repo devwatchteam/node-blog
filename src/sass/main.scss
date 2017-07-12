@@ -66,6 +66,7 @@ a {
   }
 
   &-header {
+    color: $gray;
     margin-bottom: 0.25em;
   }
 
@@ -87,9 +88,10 @@ a {
   }
 
   &-tags {
-    background: $blue-new;
+    background: $white-dark;
+    border: rem(1) solid $gray-lightest;
     border-radius: 0.15em;
-    color: $white;
+    // color: $gray;
     display: block;
     padding: 0.15em 1em;
   }
