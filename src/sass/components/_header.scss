@@ -11,15 +11,24 @@
   }
   //.site-log
   &-logo {
-    display: inline-block;
     font-size: 2.9rem;
     line-height: 1.2;
     margin: 0;
     vertical-align: middle;
 
-    a {
+    &-link {
+      align-items: center;
       color: $blue-new;
-      display: block;
+      display: flex;
+      height: 100%;
+
+      svg {
+        width: rem(70)
+      }
+
+      path {
+        // fill: $gray-lightest;
+      }
     }
   }
   //.site-nav
@@ -95,7 +104,7 @@
   }
   //.site-nav-list-item-link
   &-nav-list-item-link {
-    color: $blue-new;
+    // color: $blue-new;
     display: block;
     padding: 1em;
 
@@ -118,13 +127,13 @@
   }
 
   &-nav-sub-list-item-link {
-    color: $blue-new;
+    // color: $blue-new;
     display: block;
     padding: 1em;
 
     &:hover {
-      background: $blue-new;
-      color: $white;
+      background: $gray-lightest;
+      // color: $white;
     }
   }
 }

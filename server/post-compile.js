@@ -189,28 +189,35 @@ _async_ (() => {
   //create home page
   const indextemplate = fs.readFileSync('src/views/index.ejs', 'utf-8');
 
-  const paginatedPostObjectList = paginate(postObjectList);
+  if (postObjectList) {
+    const paginatedPostObjectList =  paginate(postObjectList);
 
-  // create each page for paginated list
-  paginatedPostObjectList.map((page, i) => {
+    // create each page for paginated list
+    paginatedPostObjectList.map((page, i) => {
+      const indexhtml = ejs.render ( indextemplate , {
+        nav: totalNav,
+        tag: '/',
+        page: page.page,
+        pages: page.pages,
+        list: page.list,
+        filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
+      });
+
+      if (page.page === 0) {
+        writeFile(`docs/index.html`, indexhtml);
+      } else {
+        writeFile(`docs/index-${i}.html`, indexhtml);
+      }
+
+    });
+  } else {
     const indexhtml = ejs.render ( indextemplate , {
       nav: totalNav,
       tag: '/',
-      page: page.page,
-      pages: page.pages,
-      list: page.list,
       filename: __dirname.replace('/server', '') + '/src/views/index.ejs'
     });
-
-    if (page.page === 0) {
-      writeFile(`docs/index.html`, indexhtml);
-    } else {
-      writeFile(`docs/index-${i}.html`, indexhtml);
-    }
-
-  });
-  // }
-
+    writeFile(`docs/index.html`, indexhtml);
+  }
 
   console.log(chalk.red.bold("SITE GENERATED"));
 })();

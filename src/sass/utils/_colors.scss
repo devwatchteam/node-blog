@@ -11,9 +11,9 @@ $white: #fff;
 $blue: #2864ab;
 $blue-dark: darken($blue, 10%);
 $blue-light: #3686e4;
-$white-dark: #eee;
+$white-dark: #f9f9f9;//#eee;
 $black: #555;
 
 $pink: #FE049A;
-$blue-new: #00B9FE;
+$blue-new: $gray; //#00B9FE;
 /* stylelint-enable */

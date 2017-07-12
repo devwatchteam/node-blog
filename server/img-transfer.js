@@ -12,7 +12,6 @@ fs.readdir(`./src/static/img`, (err, images) => {
   images.map((image) => {
     const img = fs.readFileSync(`./src/static/img/${image}`);
     writeFile(`docs/static/img/${image}`, img);
-    writeFile(`tmp/node-blog/static/img/${image}`, img);
     console.log(chalk.red.bold(`COPIED IMG: ${image}`));
   });
 });

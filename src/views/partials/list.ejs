@@ -14,7 +14,7 @@
               const tags = list[i].tags;
               for(let i = 0; i < tags.length; i++) {%>
               <li>
-                <a class="post-tags" href="<%-repo%>/<%=tags[i]%>">
+                <a class="post-tags post-tags-<%=tags[i].replace(/\"/g, "")%>" href="<%-repo%>/<%=tags[i]%>">
                   <%=tags[i].replace(/\"/g, "")%>
                 </a>
               </li>
