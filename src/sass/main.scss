@@ -94,6 +94,10 @@ a {
     // color: $gray;
     display: block;
     padding: 0.15em 1em;
+
+    &:hover {
+      background: $less-white;
+    }
   }
 }
 
