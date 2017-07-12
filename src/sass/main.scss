@@ -35,9 +35,7 @@ a {
   }
 
   &-head {
-    @include bp(600, max-width) {
-      padding-right: 0;
-    }
+    padding-right: 0;
   }
 
   &-body {
@@ -124,6 +122,28 @@ a {
 
 .widget {
   &-social {
+    align-self: center;
     flex-basis: auto;
+  }
+
+  &-social-link {
+    align-items: center;
+    display: flex;
+    margin-bottom: 0.75em;
+
+    & * + * {
+      line-height: 1;
+      margin-left: 0.25em;
+    }
+  }
+
+  &-biz {
+    &-header {
+      margin-bottom: 0.5em;
+    }
+
+    &-text {
+      margin-bottom: 0.15em;
+    }
   }
 }
