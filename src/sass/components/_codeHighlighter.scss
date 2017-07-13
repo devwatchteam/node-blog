@@ -1,0 +1,28 @@
+@import '../utils/colors';
+
+body {
+  // counter-reset: lines;
+}
+
+pre {
+  background: $blue-black;
+  font-family: monospace;
+  margin-bottom: 2em;
+  overflow: auto;
+  padding: 1em 1.5em;
+}
+
+code {
+  & > span {
+    // counter-increment: line;
+    position: relative;
+  }
+
+  // & > span::before {
+  //   color: $white-dark;
+  //   content: counter(line);
+  //   display: block;
+  //   padding: rem(1);
+  //   position: absolute;
+  // }
+}

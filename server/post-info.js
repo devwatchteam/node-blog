@@ -1,8 +1,28 @@
 import fs from 'fs';
 import fm from 'front-matter';
-import { markdown as md } from 'markdown';
+import markdown from 'markdown-it';
+import hljs from 'highlight.js';
 import chalk from 'chalk';
 import { writeFile } from './utils';
+
+const md = new markdown({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      console.log("yes");
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch (__) {}
+    } else {
+      try {
+        const hl = hljs.highlightAuto(str, ['html', 'javascript', 'css', 'sass', 'shell']).value;
+        console.log("no:", hl);
+        return hl;
+      } catch (__) {}
+    }
+
+    return ''; // use external default escaping
+  }
+});
 
 
   //get directory post
@@ -32,7 +52,9 @@ fs.readdir(`./src/post/`, (err, posts) => {
       const postData = content.attributes;
 
       //parse markdown and store the html
-      postData.body = md.toHTML(content.body);
+      // postData.body = md.toHTML(content.body);
+
+      postData.body = md.render(content.body);
 
       //get file name and remove extension
       postData.filename = fileName.replace(/\.[^/.]+$/, "");

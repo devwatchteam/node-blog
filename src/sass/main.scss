@@ -1,5 +1,6 @@
 @import 'utils/base';
 @import 'components/header';
+@import 'components/codeHighlighter';
 
 :root {
   font-size: 99%;
@@ -41,6 +42,7 @@ a {
   &-body {
     flex: 2;
     flex-direction: column;
+    padding-bottom: 4em;
   }
 
   &-footer {
