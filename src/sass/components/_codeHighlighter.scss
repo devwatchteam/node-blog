@@ -9,7 +9,7 @@ pre {
   font-family: monospace;
   margin-bottom: 2em;
   overflow: auto;
-  padding: 1em 1.5em;
+  padding: 1em 1.5em 1em 0.5em;
 }
 
 code {
@@ -25,4 +25,22 @@ code {
   //   padding: rem(1);
   //   position: absolute;
   // }
+}
+
+.line-number {
+  text-align: right;
+  padding-right: rem(20);
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.2);
+  width: rem(40);
+  font-size: rem(11);
+  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+}
+
+/* Technique to disable line numbers from being selected and copied.
+   Checkout this post for more details http://codepen.io/danoc/pen/ByGKZv */
+[data-pseudo-content]::before,
+[data-pseudo-content--before]::before,
+[data-pseudo-content--after]::after {
+  content: attr(data-pseudo-content);
 }

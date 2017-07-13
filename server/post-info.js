@@ -6,21 +6,27 @@ import chalk from 'chalk';
 import { writeFile } from './utils';
 
 const md = new markdown({
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      console.log("yes");
-      try {
-        return hljs.highlight(lang, str).value;
-      } catch (__) {}
-    } else {
-      try {
-        const hl = hljs.highlightAuto(str, ['html', 'javascript', 'css', 'sass', 'shell']).value;
-        console.log("no:", hl);
-        return hl;
-      } catch (__) {}
-    }
+  highlight: function (str) {
 
-    return ''; // use external default escaping
+    let lineNumber = 0;
+    const hl = hljs.highlightAuto(str, ['html', 'javascript', 'css', 'sass', 'shell']).value;
+
+    const commentPattern = /<span class="hljs-comment">(.|\n)*?<\/span>/g;
+    const adaptedHighlightedContent = hl.replace(commentPattern, data => {
+      return data.replace(/\r?\n/g, () => {
+        return '\n<span class="hljs-comment">';
+      });
+    });
+
+    const contentTable = adaptedHighlightedContent.split(/\r?\n/).map(lineContent => {
+      return `<tr>
+                <td class='line-number' data-pseudo-content=${++lineNumber}></td>
+                <td>${lineContent}</td>
+              </tr>`
+    }).join('');
+
+    return `<pre><code><table class='code-table'>${contentTable}</table></code></pre>`;
+    // return hl;
   }
 });
 
