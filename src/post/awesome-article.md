@@ -1,12 +1,12 @@
 ---
-title: Dope on a muh fuckin rope mang!
+title: Webpack v.2
 description: So how can we get our webpack config back into working shape? For starters we must change `module.loaders` to `module.rules`.  
 author: "@Dave_Conner"
 tags: [javascript, webpack]
 date: March 8, 2017
 ---
 
-#Webpack v.2
+
 
 ## resources:
 
