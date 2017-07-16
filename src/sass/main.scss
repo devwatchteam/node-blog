@@ -19,6 +19,13 @@ a {
   color: $pink;
 }
 
+.accent {
+  color: $pink;
+  font-size: 60%;
+  padding: 0.5em;
+  text-transform: uppercase;
+}
+
 
 .wrap {
   display: flex;
@@ -35,9 +42,9 @@ a {
     padding: 0;
   }
 
-  &-head {
-    padding-right: 0;
-  }
+  // &-head {
+  //   padding-right: 0;
+  // }
 
   &-body {
     flex: 2;
@@ -75,6 +82,10 @@ a {
   &-description {
     color: $gray;
     margin-bottom: 1.85em;
+  }
+
+  &-more {
+    margin-left: 1em;
   }
 
   &-tags-list {
