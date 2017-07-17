@@ -26,7 +26,6 @@ const md = new markdown({
     }).join('');
 
     return `<pre><code><table class='code-table'>${contentTable}</table></code></pre>`;
-    // return hl;
   }
 });
 
@@ -77,6 +76,13 @@ fs.readdir(`./src/post/`, (err, posts) => {
       //create json file with post data.
       writeFile(
         'tmp/data/post.json',
+        JSON.stringify(postList, null, 2),
+        chalk.red.bold(`SAVED TO POST.JSON: ${postData.filename}`)
+      );
+
+      //create json file with post data.
+      writeFile(
+        'docs/static/data/post.json',
         JSON.stringify(postList, null, 2),
         chalk.red.bold(`SAVED TO POST.JSON: ${postData.filename}`)
       );
