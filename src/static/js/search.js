@@ -93,13 +93,15 @@
 
   searchBtn.addEventListener(`click`, (e) => {
     e.preventDefault;
-    searching(e, searchInput.value.trim());
-    searchInput.value = '';
+    if (searchInput.value.length !== 0) {
+      searching(e, searchInput.value.trim());
+      searchInput.value = '';
+    }
   });
 
   searchInput.addEventListener(`keydown`, (e) => {
     e.preventDefault;
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && searchInput.value.length !== 0) {
       searching(e, searchInput.value.trim());
       searchInput.value = '';
     }

@@ -5,27 +5,31 @@ import hljs from 'highlight.js';
 import chalk from 'chalk';
 import { writeFile } from './utils';
 
+//parse markdown to add highlight classes and reformat for line numbers
 const md = new markdown({
   highlight: function (str) {
-
+    //create line numbers for code block
     let lineNumber = 0;
+
+    //pass in string to be highlighted
     const hl = hljs.highlightAuto(str, ['html', 'javascript', 'css', 'sass', 'shell']).value;
 
     const commentPattern = /<span class="hljs-comment">(.|\n)*?<\/span>/g;
+
     const adaptedHighlightedContent = hl.replace(commentPattern, data => {
       return data.replace(/\r?\n/g, () => {
         return '\n<span class="hljs-comment">';
       });
     });
 
-    const contentTable = adaptedHighlightedContent.split(/\r?\n/).map(lineContent => {
-      return `<tr>
-                <td class='line-number' data-pseudo-content=${++lineNumber}></td>
-                <td>${lineContent}</td>
-              </tr>`
+    const contentBlock = adaptedHighlightedContent.split(/\r?\n/).map(lineContent => {
+      return `<div class="code-line">
+                <span class="code-line-number" data-pseudo-content=${++lineNumber}></span>
+                <span class="code-line-content">${lineContent}</span>
+              </div>`
     }).join('');
 
-    return `<pre><code><table class='code-table'>${contentTable}</table></code></pre>`;
+    return `<pre class="code"><code class="code-block">${contentBlock}</code></pre>`;
   }
 });
 
@@ -57,8 +61,6 @@ fs.readdir(`./src/post/`, (err, posts) => {
       const postData = content.attributes;
 
       //parse markdown and store the html
-      // postData.body = md.toHTML(content.body);
-
       postData.body = md.render(content.body);
 
       //get file name and remove extension
@@ -76,8 +78,7 @@ fs.readdir(`./src/post/`, (err, posts) => {
       //create json file with post data.
       writeFile(
         'tmp/data/post.json',
-        JSON.stringify(postList, null, 2),
-        chalk.red.bold(`SAVED TO POST.JSON: ${postData.filename}`)
+        JSON.stringify(postList, null, 2)
       );
 
       //create json file with post data.

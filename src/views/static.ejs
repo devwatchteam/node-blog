@@ -8,8 +8,10 @@
 <main class="wrap wrap-main">
   <%- include partials/header.ejs %>
   <section class="wrap wrap-body">
-    <h1 class="static-header"><%-JSON.stringify(post.title).replace(/\"/g, "")%></h2>
-    <a href="https://twitter.com/<%-JSON.stringify(post.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.author).replace(/\"/g, "")%></a>
+    <h1 class="static-header"><%-JSON.stringify(post.title).replace(/\"/g, "")%></h1>
+    <p>By <a href="https://twitter.com/<%-JSON.stringify(post.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.author).replace(/\"/g, "")%></a> on 
+      <%-JSON.stringify(post.date).replace(/\"/g, "")%>
+    </p>
     <%-body%>
   </section>
 
