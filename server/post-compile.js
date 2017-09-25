@@ -58,7 +58,7 @@ _async_ (() => {
       }
       return a;
     },[]);
-
+    
     //create subnav with tags and create each tags list
     postTags.map((item, i) => {
 
