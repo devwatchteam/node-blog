@@ -2,7 +2,7 @@
 title:  "BootstrApp!"
 description: BootstrApp is a collection of best practices and helper functions that will help make your mobile application feel native and save you time in development.
 author: "@Dave_Conner"
-tags: [pwa, css, sass] 
+tags: [pwa, css, sass]
 date:   Nov 22, 2016
 ---
 
@@ -20,8 +20,7 @@ In addition to our regular html boilerplate there are a few links and meta tags 
 [Fullscreen dat app!](https://developers.google.com/web/fundamentals/native-hardware/fullscreen/)
 This first group of metatags are necessary to remove the address bar when your app is added to the home page. This will only work on single page apps as navigating to another page will cause the address bar to reappear. **(confirm)**
 ```
-<!-- Get rid of the address bar when saved to home screen
- -->
+<!-- Get rid of the address bar when saved to home screen -->
  <!-- iOS -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <!-- Android -->

@@ -1,40 +1,32 @@
 @import '../utils/colors';
 
-body {
-  // counter-reset: lines;
-}
-
-pre {
+.code {
   background: $blue-black;
+  display: block;
   font-family: monospace;
+  font-size: 1em;
   margin-bottom: 2em;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 1em 1.5em 1em 0.5em;
-}
 
-code {
-  & > span {
-    // counter-increment: line;
-    position: relative;
+  &-block {
+    display: block;
   }
 
-  // & > span::before {
-  //   color: $white-dark;
-  //   content: counter(line);
-  //   display: block;
-  //   padding: rem(1);
-  //   position: absolute;
-  // }
-}
+  &-line {
+    display: flex;
+    justify-content: flex-start;
+  }
 
-.line-number {
-  text-align: right;
-  padding-right: rem(20);
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.2);
-  width: rem(40);
-  font-size: rem(11);
-  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  &-line-number {
+    text-align: right;
+    padding-right: rem(20);
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.2);
+    min-width: rem(40);
+    font-size: 1.1em;
+  }
 }
 
 /* Technique to disable line numbers from being selected and copied.

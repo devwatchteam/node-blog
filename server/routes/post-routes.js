@@ -36,18 +36,6 @@ _async_ (() => {
     console.log("POST: ", req.params.post);
     res.sendFile(ROOT_DIR + `/post/${req.params.post}`);
   });
-  //
-  // router.get(`${process.env.npm_package_reponame}/:tag/index-[0-9]*.html`, (req, res) => {
-  //   console.log("TAG-SUB: ", req.originalUrl.replace(`${process.env.npm_package_reponame}`, ''));
-  //   res.sendFile(ROOT_DIR + `${req.originalUrl.replace(`${process.env.npm_package_reponame}`, '')}`);
-  // });
-  //
-  // router.get(`${process.env.npm_package_reponame}/index*-*[0-9]*.html`, (req, res) => {
-  //   console.log("INDEX-SUB: ", req.originalUrl.replace(`${process.env.npm_package_reponame}`, ''));
-  //   res.sendFile(ROOT_DIR + `${req.originalUrl.replace(`${process.env.npm_package_reponame}`, '')}`);
-  // });
-  //
-  //
 
   //Home page. render list from post directory
   router.get(/(\process.env.npm_package_reponame)*\/(index)*-*[0-9]*.html/, (req, res) => {
@@ -61,14 +49,6 @@ _async_ (() => {
     res.sendFile(ROOT_DIR + `/${req.params.tag}/index.html`);
   });
 
-
-
-
-  //Home page. render list from post directory
-  // router.get(`/|/index.html`, (req, res) => {
-  //   console.log("ORIGNAL: ", req.originalUrl);
-  //   res.sendFile(ROOT_DIR + `/index.html`);
-  // });
 })();
 
 

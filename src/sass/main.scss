@@ -7,6 +7,22 @@
   display: flex;
 }
 
+body {
+  background: url(http://david-conner.com/images/heroBg.jpg) repeat;
+  background-position: 50% 54%;
+
+  &::after {
+    background: rgba(255, 255, 255, 0.4);
+    content: '';
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+}
+
 html,
 body {
   height: 100%;
@@ -33,7 +49,9 @@ a {
   margin: 0 auto;
   max-width: rem(800);
   padding: 0 1em;
+  // position: relative;
   width: 100%;
+  z-index: 10;
 
   &-main {
     flex-direction: column;
@@ -42,18 +60,29 @@ a {
     padding: 0;
   }
 
-  // &-head {
-  //   padding-right: 0;
-  // }
+  &-head {
+    padding-left: 0;
+
+    @include bp(600) {
+      padding-left: 1em;
+    }
+
+    @include bp(990) {
+      max-width: 80vw;
+    }
+  }
 
   &-body {
     flex: 2;
     flex-direction: column;
-    padding-bottom: 4em;
+    padding-bottom: 3em;
   }
 
   &-footer {
     justify-content: space-between;
+    @include bp(990) {
+      max-width: 80vw;
+    }
   }
 }
 
@@ -131,8 +160,10 @@ a {
 .site-footer {
   background: $white-dark;
   border-top: rem(1) solid $gray-lightest;
-  padding: 2em 1em;
+  padding: 2em 0;
+  position: relative;
   width: 100%;
+  z-index: 10;
 
   &-widget {
     flex-basis: calc(100%/3);
