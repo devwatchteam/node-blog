@@ -35,8 +35,8 @@ const md = new markdown({
     }).join('');
 
     return `<pre class="code">
-      <code class="code-block">${contentBlock}</code>
-    </pre>`;
+              <code class="code-block">${contentBlock}</code>
+            </pre>`;
   }
 });
 

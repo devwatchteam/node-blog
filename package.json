@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run compile:build & npm-run-all --parallel watch:* & npm run start:dev",
     "start:dev": "babel-node ./server/server.js",
-    "compile:postjson": "babel-node server/post-info.js",
+    "compile:postjson": "babel-node server/site-info.js",
     "compile:site": "babel-node server/post-compile.js",
     "compile:nav": "babel-node server/execute.js",
     "compile:sass": "babel-node server/style-compile.js",
