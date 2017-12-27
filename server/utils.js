@@ -6,26 +6,27 @@ import mkdirp from 'mkdirp';
 import path, { dirname } from 'path';
 import config from '../site.config';
 
-// eslint-disable-next-line
-// const utils = module.exports = {};
-
 // parse markdown to add highlight classes and reformat for line numbers
+// @param {object} - init object defining the highlight function
 const md = new markdown({
   highlight: function (str) {
     //create line numbers for code block
     let lineNumber = 0;
 
-    //pass in string to be highlighted
+    //pass in names of languages to autodetect and highlight
     const hl = hljs.highlightAuto(str, ['html', 'javascript', 'css', 'sass', 'shell']).value;
 
+    //create regex literal to search for
     const commentPattern = /<span class="hljs-comment">(.|\n)*?<\/span>/g;
 
+    //This puts comments on a newline so that a line number will be added to comments as well
     const adaptedHighlightedContent = hl.replace(commentPattern, data => {
       return data.replace(/\r?\n/g, () => {
         return '\n<span class="hljs-comment">';
       });
     });
 
+    // wraps the line number and content line in markup that will provide our highlight styles
     const contentBlock = adaptedHighlightedContent.split(/\r?\n/).map(lineContent => {
       return `<div class="code-line">
                 <span class="code-line-number" data-pseudo-content=${++lineNumber}></span>
@@ -33,7 +34,9 @@ const md = new markdown({
               </div>`
     }).join('');
 
-    return `<pre class="code"><code class="code-block">${contentBlock}</code></pre>`;
+    return `<pre class="code">
+      <code class="code-block">${contentBlock}</code>
+    </pre>`;
   }
 });
 
@@ -41,24 +44,28 @@ const md = new markdown({
 // @param {string} url - the url path of file to be parsed
 // @return {object} - Post object that contains name of file, attributes, body, highlighted post boolean
 export const parseFile = (url) => {
-  fs.readFile(url, 'utf8', (err, data) => {
-    if (err) { throw err; }
+  const data = fs.readFileSync(url, 'utf8');
+  // pull yaml front matter
+  const content = fm(data);
 
-    // pull yaml front matter
-    const content = fm(data);
-    const cat = content.attributes.catagory
+  //get catagories
+  const cat = content.attributes.catagory;
 
-    return {
-      // use url to get filename and remove the extension
-      name: url.substr(url.lastIndexOf('/') + 1).replace(/\.[^/.]+$/, ""),
-      // grab YAML front matter
-      attributes: content.attributes,
-      // parse markdown and store the html
-      body: md.render(content.body),
-      // check if post contained a tutorial tag
-      highlight: cat ? cat.includes(config.highlight) : false,
-    }
-  });
+  //create post object
+  const fileContent = {
+    // use url to get filename and remove the extension
+    // {string}
+    name: url.substr(url.lastIndexOf('/') + 1).replace(/\.[^/.]+$/, ""),
+    // grab YAML front matter
+    // {object} -> title:<string>, desc:<string>, author:<string>, tags:<array>, date:<string>, highlight:<boolean>
+    attributes: content.attributes,
+    // parse markdown and store the html
+    body: md.render(content.body),
+    // check if post contained a tutorial tag
+    // {boolean}
+    highlight: cat ? cat.includes(config.highlight) : false,
+  }
+  return fileContent;
 };
 
 // write files to a directory/ will create directories that are not present
@@ -85,6 +92,7 @@ export const writeFile = (path, contents, msg = null) => {
 // @return {array} filelist - the updated array with the new file urls
 export const getFileList = (dir, filelist = []) => {
   fs.readdirSync(dir).forEach(file => {
+
     // check if directory
     filelist = fs.statSync(path.join(dir, file)).isDirectory()
       // if so call method on this directory
@@ -95,5 +103,3 @@ export const getFileList = (dir, filelist = []) => {
   });
   return filelist;
 }
-
-

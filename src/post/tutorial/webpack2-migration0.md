@@ -3,6 +3,7 @@ title: Test post 5
 description: Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade.
 author: "@Dave_Conner"
 tags: [javascript, pwa]
+catagory: tutorial
 date: March 10, 2020
 ---
 

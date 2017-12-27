@@ -1,52 +1,56 @@
-import fs from 'fs';
-import fm from 'front-matter';
-import markdown from 'markdown-it';
-import hljs from 'highlight.js';
-// import chalk from 'chalk';
 import { writeFile, getFileList, parseFile } from './utils';
-// import { async as _async_, await as _await_ } from 'asyncawait';
+import config from '../site.config';
 
 // create array to store list of post
 let postList = {};
 
-//create an array to store the tags which will make up our nav
-let nav = [];
+//create an array to store the tags which will make up our catagory sub nav
+let subNav = [];
 
-getFileList(`./src/post/`).map(url => {
-  
-  //use url to get filename and remove the extension
-  let fileName = url.substr(url.lastIndexOf('/') + 1).replace(/\.[^/.]+$/, "");
+//map through list of file names and populate both nav and postList
+const createPostItems = getFileList(`./src/post/`).map(url => {
+  const item = parseFile(url);
+  postList[item.name] = item;
 
-  fs.readFile(url, 'utf8', (err, data) => {
-    // if error in getting
-    if (err) { throw err; }
-    
-    //pull yaml front matter
-    const content = fm(data);
-    
+  //add post tags array to nav array to get filtered (no dupes) and alphabatized
+  subNav = subNav.concat(item.attributes.tags).reduce((a, b) => {
+    if (a.indexOf(b) < 0) {
+      a.push(b);
+    }
+    return a;
+  }, []).sort();
+});
 
-    //add post tags array to nav array to get filtered (no dupes)
-    nav = nav.concat(content.attributes.tags).reduce((a, b) => {
-      if (a.indexOf(b) < 0) {
-        a.push(b);
-      }
-      return a;
-    }, []);
-    
-    postList[fileName] = parseFile(url);
-    console.log('CONTENT: ', postList[fileName]);
-  });
+// wrap map in promise so we can chain the write function and execute only once
+// postList object is populated with data
+Promise.all(createPostItems).then(() => {
+  console.log(`This is wut up: ${JSON.stringify(subNav, null, 2)}`);
+  // create post data object and populate with config settings, catagories, and postItems
+  const postData = {
+    // {string} - name of highlight list
+    highlight: config.highlight,
+    // {array} - The cats collected by createPostItems
+    catagories: subNav,
+    // {object} - all the post data
+    post: postList,
+    // {integer} - number of post to list before pagination
+    pagination: config.pagination,
+  }
 
-  
+  // create json file with post data.
+  writeFile(
+    'tmp/data/post.json',
+    JSON.stringify(postData, null, 2),
+    'post.json file written',
+  );
+}).catch((err) => {
+  console.log('ERROR:', err);
 });
 
 
 
-//create json file with post data.
-writeFile(
-  'tmp/data/post.json',
-  JSON.stringify(postList, null, 2)
-);
+
+
 
 
 
