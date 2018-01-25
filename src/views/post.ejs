@@ -3,15 +3,24 @@
 <!-- /head -->
 
 <!-- body -->
+
+<main class="wrap wrap-main">
   <%- include partials/header.ejs %>
-  <div class="wrap wrap-body">
-    <h1><%-JSON.stringify(post.title).replace(/\"/g, "")%></h1>
-    <p><%-JSON.stringify(post.date).replace(/\"/g, "")%></p>
-    <a href="https://twitter.com/<%-JSON.stringify(post.author).replace(/\"/g, "")%>"><%-JSON.stringify(post.author).replace(/\"/g, "")%></a>
+  <section class="wrap wrap-body">
+    <h1 class="static-header">
+      <%-JSON.stringify(post.attributes.title).replace(/\"/g, "")%>
+    </h1>
+    <p>By
+      <a href="https://twitter.com/<%-JSON.stringify(post.attributes.author).replace(/\" /g, "")%>">
+        <%-JSON.stringify(post.attributes.author).replace(/\"/g, "")%>
+      </a> on
+      <%-JSON.stringify(post.attributes.date).replace(/\"/g, "")%>
+    </p>
     <%-body%>
-  </div>
-<!-- /body -->
+  </section>
 
 <!-- footer -->
 <%- include partials/footer.ejs %>
 <!-- /footer -->
+
+<!-- /body -->

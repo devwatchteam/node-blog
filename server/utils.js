@@ -7,7 +7,6 @@ import path, { dirname } from 'path';
 import config from '../site.config';
 
 // parse markdown to add highlight classes and reformat for line numbers
-// @param {object} - init object defining the highlight function
 const md = new markdown({
   highlight: function (str) {
     //create line numbers for code block
@@ -40,6 +39,10 @@ const md = new markdown({
   }
 });
 
+// ------------------------------------------
+// -- File Actions --------------------------
+// ------------------------------------------
+
 // Retrieve file name, attributes and body of specified file
 // @param {string} url - the url path of file to be parsed
 // @return {object} - Post object that contains name of file, attributes, body, highlighted post boolean
@@ -69,7 +72,7 @@ export const parseFile = (url) => {
 };
 
 // write files to a directory/ will create directories that are not present
-// @param {string} dir - the url path to write the file to
+// @param {string} path - the url path to write the file to
 // @param {object} contents - contents being written to file
 // @param {string} msg - message to be consoled out when file is written
 // @return {boolean} true - returns true if no errors
@@ -103,3 +106,143 @@ export const getFileList = (dir, filelist = []) => {
   });
   return filelist;
 }
+
+
+// ------------------------------------------
+// -- Site Compilation Actions --------------
+// ------------------------------------------
+
+// Paginate a given list of items
+// @param {array} list - the list to be paginated
+// @param {integer} ppp - post per page
+// @return {array} - an array of arrays
+export const paginate = (list, ppp = 5) => {
+  // find number of pages needed
+  const pages = Math.ceil(list.length / ppp);
+  // create array to be returned
+  const paginatedList = [];
+
+  // initialize start and stop points
+  let start = 0;
+  let end = ppp;
+  // slice off the amount of ppp
+  for (let i = 0; i < pages; i++) {
+    paginatedList[i] = {
+      pages,
+      page: i,
+      list: list.slice(start, end)
+    }
+    //kick up the start and stop for the slice
+    start = end;
+    end += ppp;
+  }
+
+  return paginatedList;
+}
+
+// Struncture the nav objects to pass to ejs
+// @param {object} linkNames -  array of page names and array of cat naems
+// @param {boolean} highlight - boolean to determine whether to render highlighted post nav
+// @return {array} navArray - the array of nav objects to pass to ejs
+export const buildNav = async (linkNames, highlight = false) => {
+  // function that returns nav link object
+  const createLink = (name, ext = true) => {
+    return {
+      Link: ext ? `${name}.html` : name,
+      Text: name
+    }
+  }
+
+  // create navArray that will be returned and push the page link objects
+  const navArray = await linkNames.pages.map((linkname) => {
+    //create link object to be passed into nav and subnav array
+    return createLink(linkname);
+  })
+
+  // category link that will contain subnav
+  const catagories = {
+    Text: `catagories`,
+    Sub: await linkNames.catagories.map((linkname) => {
+      //create link object to be passed into nav and subnav array
+      return createLink(linkname, false);
+    }),
+  }
+
+  if (typeof highlight === 'string') {
+    // highlight link that will contain subnav
+    const highlightNav = {
+      Text: highlight,
+      Sub: await linkNames.highlightCatagories.map((linkname) => {
+        //create link object to be passed into nav and subnav array
+        return createLink(linkname, false);
+      }),
+    }
+    navArray.push(highlightNav, catagories);
+  } else {
+    navArray.push(catagories);
+  }
+  return navArray
+};
+
+// Create post list for each catagory
+// @param {array} list - array of catagory names
+// @param {array} posts - array of all post objects to be sorted
+// @return {Object} tagPostObject - Object of tag named arrays of post objects
+export const makeTagPostList = (list, posts) => {
+  let tagPostObject = {};
+  list.map(item => {
+    tagPostObject[item] = [];
+    //create tag list and push each post with the tag to its list
+    posts.map(post => {
+      if (post.attributes.tags.includes(item)) {
+        tagPostObject[item].push(post);
+      }
+    });
+  });
+  return tagPostObject;
+};
+
+// Render static pages to docs folder
+// @param {array} posts - list of post
+// @param {array} nav - array of nav objects to pass to ejs template
+// @param {string} type - what type of page to render (list, home,  post, page)
+const renderPages = (posts, nav, type = 'list') => {
+  let html = null;
+  let template = fs.readFileSync('src/views/index.ejs', 'utf-8');
+  let renderedPageUrl = null;
+
+  
+  switch (type) {
+  case 'list':
+    //create tag list pages
+    renderedPageUrl = (post, tag, i) => (post.page === 0) ? `docs/${tag}/index.html` : `docs/${tag}/index-${i}.html`;
+    break;
+  case 'home':
+    //create home page
+    renderedPageUrl = (post, i) => (post.page === 0) ? `docs/index.html` : `docs/index-${i}.html`;
+    break;
+  case 'post':
+    //create static post files
+    template = (post) => fs.readFileSync(`src/views/post.ejs`, 'utf-8');
+    renderedPageUrl = (post) => `docs/post/${post.name}.html`
+    break;
+  default:
+    //create non post pages
+    template = (post) => fs.readFileSync(`src/views/pages/${post}.ejs`, 'utf-8');
+    renderedPageUrl = (post) => `docs/${post}.html`;
+    break;
+  }
+
+  //create static post files
+  posts.map(post => {
+    template(post);
+    renderedPageUrl(post)
+    html = ejs.render(template, {
+      nav,
+      post,
+      body: post.body,
+      filename: __dirname.replace('/server', '') + '/src/views/static.ejs'
+    });
+    writeFile(renderedPageUrl, html);
+  });
+};

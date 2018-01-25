@@ -1,6 +1,6 @@
 import express from 'express';
 import fs from 'fs';
-import { async as _async_ , await as _await_} from 'asyncawait';
+// import { async as _async_ , await as _await_} from 'asyncawait';
 
 const router = express.Router();
 const ROOT_DIR = __dirname.replace('/server/routes', '/docs');
@@ -9,10 +9,10 @@ const ROOT_DIR = __dirname.replace('/server/routes', '/docs');
 // --   post routes   --
 // ---------------------
 
-_async_ (() => {
+(async() => {
 
   // pages
-  _await_ (fs.readdir(`./src/views/pages/`, (err, pages) => {
+  await (fs.readdir(`./src/views/pages/`, (err, pages) => {
 
     //create links for pages navigation
     pages.map(page => {
