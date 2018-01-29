@@ -54,7 +54,7 @@ Promise.all(crawlPostItems).then(() => {
     // {array} - The cats collected by createPostItems
     catagories: subNav.length > 1 ? subNav : false,
     // {array} - The cats collected by createPostItems for highlighted post
-    highlightCatagories: highlightedSubNav.length > 1 ? highlightedSubNav : false,
+    highlightCatagories: highlightedSubNav.length > 1 ? highlightedSubNav : [],
     // {array} - of all the post objects
     post: postList,
     // {array} - of all the highlighted post objects

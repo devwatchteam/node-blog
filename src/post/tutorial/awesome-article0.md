@@ -3,7 +3,7 @@ title: Test Post 1!
 description: So how can we get our webpack config back into working shape? For starters we must change `module.loaders` to `module.rules`.  
 author: "@Dave_Conner"
 tags: [javascript, webpack, tutorial]
-catagory: tutorial
+catagory: tutorials
 date: March 13, 2017
 ---
 

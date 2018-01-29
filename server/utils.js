@@ -4,6 +4,7 @@ import markdown from 'markdown-it';
 import hljs from 'highlight.js';
 import mkdirp from 'mkdirp';
 import path, { dirname } from 'path';
+import ejs from 'ejs';
 import config from '../site.config';
 
 // parse markdown to add highlight classes and reformat for line numbers
@@ -27,10 +28,7 @@ const md = new markdown({
 
     // wraps the line number and content line in markup that will provide our highlight styles
     const contentBlock = adaptedHighlightedContent.split(/\r?\n/).map(lineContent => {
-      return `<div class="code-line">
-                <span class="code-line-number" data-pseudo-content=${++lineNumber}></span>
-                <span class="code-line-content">${lineContent}</span>
-              </div>`
+      return `<div class="code-line"><span class="code-line-number" data-pseudo-content=${++lineNumber}></span><span class="code-line-content">${lineContent}</span></div>`
     }).join('');
 
     return `<pre class="code">
@@ -53,7 +51,7 @@ export const parseFile = (url) => {
 
   //get catagories
   const cat = content.attributes.catagory;
-
+  console.log(`THIS IS FROM UTILS BITCHES!!: ${cat} and the ${JSON.stringify(config, null, 2)}`)
   //create post object
   const fileContent = {
     // use url to get filename and remove the extension
@@ -154,21 +152,21 @@ export const buildNav = async (linkNames, highlight = false) => {
   }
 
   // create navArray that will be returned and push the page link objects
-  const navArray = await linkNames.pages.map((linkname) => {
+  const navArray = await linkNames.pages.map(linkname => {
     //create link object to be passed into nav and subnav array
     return createLink(linkname);
   })
 
   // category link that will contain subnav
   const catagories = {
-    Text: `catagories`,
+    Text: config.catTitle || `catagories`,
     Sub: await linkNames.catagories.map((linkname) => {
       //create link object to be passed into nav and subnav array
       return createLink(linkname, false);
     }),
   }
 
-  if (typeof highlight === 'string') {
+  if (typeof highlight === 'string' && linkNames.highlightCatagories.length > 1) {
     // highlight link that will contain subnav
     const highlightNav = {
       Text: highlight,
@@ -181,6 +179,7 @@ export const buildNav = async (linkNames, highlight = false) => {
   } else {
     navArray.push(catagories);
   }
+
   return navArray
 };
 
@@ -195,56 +194,78 @@ export const makeTagPostList = (list, posts) => {
     //create tag list and push each post with the tag to its list
     posts.map(post => {
       if (post.attributes.tags.includes(item)) {
-        // console.log(`UTILS: ${post.attributes.tags} and ${item}`);
         tagPostObject[item].push(post);
       }
     });
   });
-  // console.log(`UTILS final OBJECT: ${JSON.stringify(tagPostObject[Object.keys(tagPostObject)[0]], null, 2)}`);
+
   return tagPostObject;
+};
+
+// Render list pages to docs folder
+// @param {array} posts - list of post
+// @param {array} nav - array of nav objects to pass to ejs template
+// @param {string} type - what type of page to render (home, list)
+export const renderListPages = (posts, nav, type = 'home', tag) => {
+  const root = type === 'home' ? `docs/` : `docs/${tag}/`;
+  const paginatedPostObjectList = paginate(posts);
+  let template = fs.readFileSync(`src/views/index.ejs`, 'utf-8');
+  let renderedPageUrl = (post, i) => {
+    if (post.page === 0) {
+      return `${root}index.html`;
+    } else {
+      return `${root}index-${i}.html`;
+    }
+  };
+
+  //create static post files
+  paginatedPostObjectList.map((post, i) => {
+    const currTemp = template;
+    const currRenderedUrl = renderedPageUrl(post, i);
+    const html = ejs.render(currTemp, {
+      nav,
+      post,
+      tag:  type === 'home' ? '/' : `/${tag}/`,
+      page: post.page,
+      pages: post.pages,
+      list: post.list,
+      body: post.body,
+      filename: __dirname.replace('/server', '') + `/src/views/index.ejs`
+    });
+
+    writeFile(currRenderedUrl, html);
+  });
 };
 
 // Render static pages to docs folder
 // @param {array} posts - list of post
 // @param {array} nav - array of nav objects to pass to ejs template
-// @param {string} type - what type of page to render (list, home,  post, page)
-const renderPages = (posts, nav, type = 'list') => {
-  let html = null;
-  let template = fs.readFileSync('src/views/index.ejs', 'utf-8');
-  let renderedPageUrl = null;
-
-  
-  switch (type) {
-  case 'list':
-    //create tag list pages
-    renderedPageUrl = (post, tag, i) => (post.page === 0) ? `docs/${tag}/index.html` : `docs/${tag}/index-${i}.html`;
-    break;
-  case 'home':
-    //create home page
-    renderedPageUrl = (post, i) => (post.page === 0) ? `docs/index.html` : `docs/index-${i}.html`;
-    break;
-  case 'post':
+// @param {string} type - what type of page to render (post, page)
+export const renderPages = (posts, nav, type = 'post') => {
+  let template;
+  let renderedPageUrl;
+  if (type === 'post') {
     //create static post files
-    template = (post) => fs.readFileSync(`src/views/post.ejs`, 'utf-8');
+    template = () => fs.readFileSync(`src/views/post.ejs`, 'utf-8');
     renderedPageUrl = (post) => `docs/post/${post.name}.html`
-    break;
-  default:
+  } else {
     //create non post pages
     template = (post) => fs.readFileSync(`src/views/pages/${post}.ejs`, 'utf-8');
     renderedPageUrl = (post) => `docs/${post}.html`;
-    break;
   }
 
   //create static post files
   posts.map(post => {
-    template(post);
-    renderedPageUrl(post)
-    html = ejs.render(template, {
+    console.log(`POST EXTENSIONS YO: ${JSON.stringify(post.name, null, 2)}`);
+    const currTemp = template(post);
+    const currRenderedUrl = renderedPageUrl(post)
+    const html = ejs.render(currTemp, {
       nav,
       post,
       body: post.body,
-      filename: __dirname.replace('/server', '') + '/src/views/static.ejs'
+      filename: __dirname.replace('/server', '') + '/src/views/post.ejs'
     });
-    writeFile(renderedPageUrl, html);
+
+    writeFile(currRenderedUrl, html);
   });
 };

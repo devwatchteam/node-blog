@@ -4,7 +4,7 @@
   <ul class="post-list">
     <% for(var i = 0; i < list.length; i++) {%>
       <li class="post-list-item">
-        <a class="post-link" href="<%-repo%>/post/<%=list[i].filename%>.html">
+        <a class="post-link" href="<%-repo%>/post/<%=list[i].name%>.html">
           <date class="post-date"><%=list[i].attributes.date.replace(/\"/g, "")%></date>
           <h2 class="post-header"><%=list[i].attributes.title.replace(/\"/g, "")%></h2>
           <p class="post-description"><%=list[i].attributes.description.replace(/\"/g, "")%></p>

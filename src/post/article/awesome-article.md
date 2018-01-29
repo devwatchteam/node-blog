@@ -46,7 +46,6 @@ module: {
     ]
 }
 ```
-
 The other gotcha with the new syntax is that the automatic `-loader` module name extension was removed for clarity. You can still opt into the old behavior with the `resolveLoader.moduleExtensions` but is not recommended.
 
 ```
