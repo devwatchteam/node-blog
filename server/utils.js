@@ -195,10 +195,12 @@ export const makeTagPostList = (list, posts) => {
     //create tag list and push each post with the tag to its list
     posts.map(post => {
       if (post.attributes.tags.includes(item)) {
+        // console.log(`UTILS: ${post.attributes.tags} and ${item}`);
         tagPostObject[item].push(post);
       }
     });
   });
+  // console.log(`UTILS final OBJECT: ${JSON.stringify(tagPostObject[Object.keys(tagPostObject)[0]], null, 2)}`);
   return tagPostObject;
 };
 

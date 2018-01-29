@@ -5,13 +5,13 @@
     <% for(var i = 0; i < list.length; i++) {%>
       <li class="post-list-item">
         <a class="post-link" href="<%-repo%>/post/<%=list[i].filename%>.html">
-          <date class="post-date"><%=list[i].date.replace(/\"/g, "")%></date>
-          <h2 class="post-header"><%=list[i].title.replace(/\"/g, "")%></h2>
-          <p class="post-description"><%=list[i].description.replace(/\"/g, "")%></p>
+          <date class="post-date"><%=list[i].attributes.date.replace(/\"/g, "")%></date>
+          <h2 class="post-header"><%=list[i].attributes.title.replace(/\"/g, "")%></h2>
+          <p class="post-description"><%=list[i].attributes.description.replace(/\"/g, "")%></p>
         </a>
           <ul class="post-tags-list">
             <%
-              const tags = list[i].tags;
+              const tags = list[i].attributes.tags;
               for(let i = 0; i < tags.length; i++) {%>
               <li>
                 <a class="post-tags post-tags-<%=tags[i].replace(/\"/g, "")%>" href="<%-repo%>/<%=tags[i]%>">

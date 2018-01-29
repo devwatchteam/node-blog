@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "A Jekyll replacement",
   "scripts": {
+    "clean": "del ./docs",
     "start": "npm run compile:build & npm-run-all --parallel watch:* & npm run start:dev",
     "start:dev": "babel-node ./server/server.js",
     "compile:postjson": "babel-node server/site-info.js",
@@ -20,12 +21,14 @@
     "watch:img": "nodemon -C -e jpg,png,svg  -i tmp/ -i /docs -x 'npm run compile:img'"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",
-  "reponame": "/node-blog",
+  "reponame": "",
   "author": "David Conner",
   "license": "MIT",
   "dependencies": {
     "asyncawait": "^1.0.6",
     "compression": "^1.6.2",
+    "del": "^3.0.0",
+    "del-cli": "^1.1.0",
     "highlight.js": "^9.12.0",
     "markdown-it": "^8.3.1"
   },
@@ -45,7 +48,7 @@
     "front-matter": "^2.1.2",
     "mkdirp": "^0.5.1",
     "morgan": "^1.8.1",
-    "node-sass": "^4.5.0",
+    "node-sass": "^4.7.2",
     "npm-run-all": "^4.0.2",
     "postcss": "^5.2.16",
     "postcss-cli": "^3.0.0-beta",

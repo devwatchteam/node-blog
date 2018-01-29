@@ -96,6 +96,40 @@ import config from '../site.config';
   // check if post.json exist before creating links
   if (fs.existsSync('./tmp/data/post.json')) {
 
+    // Render list pages to docs folder
+    // @param {array} posts - list of post
+    // @param {array} nav - array of nav objects to pass to ejs template
+    // @param {string} type - what type of page to render (home, list)
+    const renderListPages = (posts, nav, type = 'home', tag) => {
+      const root = type === 'home' ? `docs/` : `docs/${tag}/`;
+      const paginatedPostObjectList = paginate(posts);
+      let template = fs.readFileSync(`src/views/index.ejs`, 'utf-8');
+      let renderedPageUrl = (post, i) => {
+        if (post.page === 0) {
+          return `${root}index.html`;
+        } else {
+          return `${root}index-${i}.html`;
+        }
+      };
+
+      //create static post files
+      paginatedPostObjectList.map((post, i) => {
+        const currTemp = template;
+        const currRenderedUrl = renderedPageUrl(post, i);
+        const html = ejs.render(currTemp, {
+          nav,
+          post,
+          tag:  type === 'home' ? '/' : `/${tag}/`,
+          page: post.page,
+          pages: post.pages,
+          list: post.list,
+          body: post.body,
+          filename: __dirname.replace('/server', '') + `/src/views/index.ejs`
+        });
+        writeFile(currRenderedUrl, html);
+      });
+    };
+
     // Render static pages to docs folder
     // @param {array} posts - list of post
     // @param {array} nav - array of nav objects to pass to ejs template
@@ -105,7 +139,7 @@ import config from '../site.config';
       let renderedPageUrl;
       if (type === 'post') {
         //create static post files
-        template = (post) => fs.readFileSync(`src/views/post.ejs`, 'utf-8');
+        template = () => fs.readFileSync(`src/views/post.ejs`, 'utf-8');
         renderedPageUrl = (post) => `docs/post/${post.name}.html`
       } else {
         //create non post pages
@@ -115,7 +149,7 @@ import config from '../site.config';
 
       //create static post files
       posts.map(post => {
-        console.log(`NAVIGATION YO: ${JSON.stringify(post, null, 2)}`);
+        // console.log(`NAVIGATION YO: ${JSON.stringify(post, null, 2)}`);
         const currTemp = template(post);
         const currRenderedUrl = renderedPageUrl(post)
         const html = ejs.render(currTemp, {
@@ -129,37 +163,7 @@ import config from '../site.config';
     };
 
 
-    // Render list pages to docs folder
-    // @param {array} posts - list of post
-    // @param {array} nav - array of nav objects to pass to ejs template
-    // @param {string} type - what type of page to render (home, list)
-    const renderListPages = (posts, nav, type = 'home') => {
-      let template;
-      let renderedPageUrl;
-      if (type === 'home') {
-        //create static post files
-        template = (post) => fs.readFileSync(`src/views/post.ejs`, 'utf-8');
-        renderedPageUrl = (post) => `docs/post/${post.name}.html`
-      } else {
-        //create non post pages
-        template = (post) => fs.readFileSync(`src/views/pages/${post}.ejs`, 'utf-8');
-        renderedPageUrl = (post) => `docs/${post}.html`;
-      }
-
-      //create static post files
-      posts.map(post => {
-        console.log(`NAVIGATION YO: ${JSON.stringify(post, null, 2)}`);
-        const currTemp = template(post);
-        const currRenderedUrl = renderedPageUrl(post)
-        const html = ejs.render(currTemp, {
-          nav,
-          post,
-          body: post.body,
-          filename: __dirname.replace('/server', '') + '/src/views/post.ejs'
-        });
-        writeFile(currRenderedUrl, html);
-      });
-    };
+    
 
     // ---------------------------------
     // -- create nav and post objects --
@@ -187,11 +191,20 @@ import config from '../site.config';
     // -- Render pagess ----------------
     // ---------------------------------
 
+    // render home page list
+    renderListPages(postObjectList, totalNav, 'home');
+
     // create static post files
-    // renderPages(postObjectList, totalNav);
+    renderPages(postObjectList, totalNav);
 
     // render non post pages
     renderPages(postData.pages, totalNav, 'pages');
+
+    // create catagory list pages
+    Object.keys(tagPostObjectList).map(name => {
+      // console.log(`NAVIGATION YO: ${JSON.stringify(tagPostObjectList[name], null, 2)}`);
+      renderListPages(tagPostObjectList[name], totalNav, 'list', name);
+    })
 
   } else {
     // post.json does not exist, console error
