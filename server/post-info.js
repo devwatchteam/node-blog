@@ -35,7 +35,7 @@ const md = new markdown({
 
 
   //get directory post
-fs.readdir(`./src/post/`, (err, posts) => {
+fs.readdir(`./src/post/article`, (err, posts) => {
 
   //if error in getting
   if (err) { throw err; }
@@ -51,7 +51,7 @@ fs.readdir(`./src/post/`, (err, posts) => {
     const fileName = post;
 
     //get yaml front matter from each post file
-    fs.readFile(`./src/post/${fileName}`, 'utf8', (err, data) => {
+    fs.readFile(`./src/post/article/${fileName}`, 'utf8', (err, data) => {
 
       //if error in getting
       if (err) { throw err; }

@@ -118,10 +118,8 @@
       }
     }
 
-    &:last-child {
-      @include bp(900) {
-        position: relative;
-      }
+    @include bp(900) {
+      position: relative;
     }
   }
   //.site-nav-list:not(:last-child)

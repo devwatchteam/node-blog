@@ -1,18 +1,20 @@
 ---
-title: Webpack v.2
-description: So how can we get our webpack config back into working shape? For starters we must change `module.loaders` to `module.rules`.  
+title: Test Post 3!!
+description: Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade. Staying on the bleeding edge can get tiresome for as soon as you update Webpack and try to compile you get an error. The good news?
 author: "@Dave_Conner"
-tags: [javascript, webpack]
+tags: [javascript, markdown]
+catagory: tutorial
 date: March 8, 2017
 ---
 
-
+#Webpack v.2
 
 ## resources:
 
 1. [migration](https://webpack.js.org/guides/migrating/)
 2. [ExtractTextPlugin](https://github.com/webpack-contrib/extract-text-webpack-plugin)
 3. [tree shaking](http://www.2ality.com/2015/12/webpack-tree-shaking.html)
+
 
 ## Outline
 1. Migration
@@ -22,15 +24,13 @@ date: March 8, 2017
 3. Custom Properties no longer allowed
 3. Tree shaking
 
-![Awesome Title](/static/img/vermont-001.jpg)
-
 ## Migration
 Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade. Staying on the bleeding edge can get tiresome for as soon as you update Webpack and try to compile you get an error. The good news? There is now a config validator built into Webpack v2 which is pretty sweet.  The bad news? As the validator will tell you, there are several items in your config which are now incompatible with the new api schema. Lucky for us, the team has put together a [migration guide](https://webpack.js.org/guides/migrating/). One of the most improved features of Webpack may actually be their documentation. This guide is straight forward and helpful and the new documents don’t leave you with a headache.
 
 ### Loaders
 So how can we get our webpack config back into working shape? For starters we must change `module.loaders` to `module.rules`.  Inside our loader objects we have a loader property which used to have several ways of declaring the loaders to be used. Now there are two supported ways. You can either declare a single loader  as a string using `rules.loader` or an array of loaders using `rules.use`. The list of loaders chained with the `!` is only supported using the legacy option `module.loaders`. As this statement implies the `modules.loaders` syntax is still valid for compatibility reason but the clarity of the new naming convention along with the new configuration abilities make the new syntax a best practice moving forward.
 
-```javascript
+```
 module: {
    //all loaders used in webpack
     rules: [

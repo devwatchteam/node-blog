@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { writeFile } from './utils';
 
 
-//move images to docs directory
+//move js files to docs directory
 fs.readdir(`./src/static/js`, (err, files) => {
 
   //if error in getting

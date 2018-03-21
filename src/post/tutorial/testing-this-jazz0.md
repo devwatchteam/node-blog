@@ -3,6 +3,7 @@ title: Test Post 3
 description: Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade. Staying on the bleeding edge can get tiresome.
 author: "@Dave_Conner"
 tags: [javascript]
+catagory: tutorial
 date: March 8, 2018
 ---
 

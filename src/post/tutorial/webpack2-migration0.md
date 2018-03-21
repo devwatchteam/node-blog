@@ -1,18 +1,19 @@
 ---
-title: Test post 4!
-description: Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade. Staying on the bleeding edge can get tiresome for as soon as you update Webpack and try to compile you get an error. The good news?
+title: Test post 5
+description: Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade.
 author: "@Dave_Conner"
-tags: [javascript]
-date: March 8, 2017
+tags: [javascript, pwa]
+catagory: tutorial
+date: March 10, 2020
 ---
 
-#Webpack v.2
 
 ## resources:
 
 1. [migration](https://webpack.js.org/guides/migrating/)
 2. [ExtractTextPlugin](https://github.com/webpack-contrib/extract-text-webpack-plugin)
 3. [tree shaking](http://www.2ality.com/2015/12/webpack-tree-shaking.html)
+
 
 ## Outline
 1. Migration

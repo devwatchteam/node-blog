@@ -1,12 +1,12 @@
 ---
-title: Test Post 1!
+title: Webpack v.2
 description: So how can we get our webpack config back into working shape? For starters we must change `module.loaders` to `module.rules`.  
 author: "@Dave_Conner"
 tags: [javascript, webpack]
-date: March 13, 2017
+date: March 8, 2017
 ---
 
-#Webpack v.2
+
 
 ## resources:
 
@@ -30,7 +30,7 @@ Right when you were starting to feel good about your Webpack config file Webpack
 ### Loaders
 So how can we get our webpack config back into working shape? For starters we must change `module.loaders` to `module.rules`.  Inside our loader objects we have a loader property which used to have several ways of declaring the loaders to be used. Now there are two supported ways. You can either declare a single loader  as a string using `rules.loader` or an array of loaders using `rules.use`. The list of loaders chained with the `!` is only supported using the legacy option `module.loaders`. As this statement implies the `modules.loaders` syntax is still valid for compatibility reason but the clarity of the new naming convention along with the new configuration abilities make the new syntax a best practice moving forward.
 
-```
+```javascript
 module: {
    //all loaders used in webpack
     rules: [
@@ -46,7 +46,6 @@ module: {
     ]
 }
 ```
-
 The other gotcha with the new syntax is that the automatic `-loader` module name extension was removed for clarity. You can still opt into the old behavior with the `resolveLoader.moduleExtensions` but is not recommended.
 
 ```

@@ -1,6 +1,8 @@
 const config = {
   reponame: '/node-blog',
   pagination: 10,
+  highlight: 'tutorials',
+  catTitle: 'articles',
 }
 
-module.exports = config;
+export default config;
