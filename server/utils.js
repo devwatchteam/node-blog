@@ -51,7 +51,7 @@ export const parseFile = (url) => {
 
   //get catagories
   const cat = content.attributes.catagory;
-  console.log(`THIS IS FROM UTILS BITCHES!!: ${cat} and the ${JSON.stringify(config, null, 2)}`)
+  
   //create post object
   const fileContent = {
     // use url to get filename and remove the extension
@@ -256,7 +256,6 @@ export const renderPages = (posts, nav, type = 'post') => {
 
   //create static post files
   posts.map(post => {
-    console.log(`POST EXTENSIONS YO: ${JSON.stringify(post.name, null, 2)}`);
     const currTemp = template(post);
     const currRenderedUrl = renderedPageUrl(post)
     const html = ejs.render(currTemp, {

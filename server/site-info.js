@@ -70,6 +70,13 @@ Promise.all(crawlPostItems).then(() => {
     'File written to post.json',
   );
 
+  //create json file with post data.
+  writeFile(
+    'docs/static/data/post.json',
+    JSON.stringify(postList, null, 2),
+    `SAVED TO POST.JSON: ${postData.name}`
+  );
+
   // handle dem errors doh
 }).catch((err) => {
   console.log('ERROR:', err);

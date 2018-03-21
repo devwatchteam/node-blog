@@ -1,9 +1,6 @@
-// const json = require('../../../tmp/data/post.json');
 (function() {
 
-
-  var json = {};
-  let posts = []
+  let totalPosts = []
 
   const loadJSON = (path, cb) => {
     var xobj = new XMLHttpRequest();
@@ -18,9 +15,10 @@
   }
 
   loadJSON(`/static/data/post.json`, (response) => {
-    json = JSON.parse(response);
-    posts = Object.values(json);
-
+    const json = JSON.parse(response);
+    const info = Object.values(json);
+    totalPosts = info;
+    console.table(info);
   });
 
   let postList = document.querySelector(`.post-list`);
@@ -34,10 +32,10 @@
     }
     if (post) {
       return `<li class="post-list-item">
-        <a class="post-link" href="${urlBase}${post.filename}.html">
-          <date class="post-date">${post.date.replace(/\"/g, "")}</date>
-          <h2 class="post-header">${post.title.replace(/\"/g, "")}</h2>
-          <p class="post-description">${post.description.replace(/\"/g, "")}<span class="accent"> &hellip;Read More</span></p>
+        <a class="post-link" href="${urlBase}${post.name}.html">
+          <date class="post-date">${post.attributes.date.replace(/\"/g, "")}</date>
+          <h2 class="post-header">${post.attributes.title.replace(/\"/g, "")}</h2>
+          <p class="post-description">${post.attributes.description.replace(/\"/g, "")}<span class="accent"> &hellip;Read More</span></p>
         </a>
       </li>`
     }
@@ -63,7 +61,7 @@
     }
 
     const resultsArray = [];
-    posts.map(post => {
+    totalPosts.map(post => {
       if (post.body.toLowerCase().includes(term.toLowerCase())) {
         console.log(`WHOA! ${term} has been found!`);
         if (!found) {

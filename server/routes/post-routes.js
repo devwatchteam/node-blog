@@ -1,6 +1,5 @@
 import express from 'express';
 import fs from 'fs';
-// import { async as _async_ , await as _await_} from 'asyncawait';
 
 const router = express.Router();
 const ROOT_DIR = __dirname.replace('/server/routes', '/docs');
