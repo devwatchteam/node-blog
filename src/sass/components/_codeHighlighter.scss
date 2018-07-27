@@ -1,0 +1,38 @@
+@import '../utils/colors';
+
+.code {
+  background: $blue-black;
+  display: block;
+  font-family: monospace;
+  font-size: 1em;
+  margin-bottom: 2em;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1em 1.5em 1em 0.5em;
+
+  &-block {
+    display: block;
+  }
+
+  &-line {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &-line-number {
+    text-align: right;
+    padding-right: rem(20);
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.2);
+    min-width: rem(40);
+    font-size: 1.1em;
+  }
+}
+
+/* Technique to disable line numbers from being selected and copied.
+   Checkout this post for more details http://codepen.io/danoc/pen/ByGKZv */
+[data-pseudo-content]::before,
+[data-pseudo-content--before]::before,
+[data-pseudo-content--after]::after {
+  content: attr(data-pseudo-content);
+}

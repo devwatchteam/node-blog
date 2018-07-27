@@ -1,0 +1,20 @@
+@import 'utils';
+@import 'reset';
+@import 'typography';
+
+html,
+body {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-sizing: inherit;
+  touch-action: manipulation;
+}
+
+a { text-decoration: none; }
+
+img { max-width: 100%; }
