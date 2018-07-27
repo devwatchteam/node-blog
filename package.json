@@ -17,7 +17,7 @@
     "watch:js": "nodemon -C -e js -i docs -i server/server.js -i server/site-info.js -x 'npm run compile:site'",
     "watch:scss": "nodemon -C -e scss -x 'npm run compile:sass'",
     "watch:ejs": "nodemon -C -e ejs -x 'npm run compile:site'",
-    "watch:img": "nodemon -C -e jpg,png,svg  -i tmp/ -i /docs -x 'npm run compile:img'"
+    "watch:img": "nodemon -C -e jpg,png,svg  -i ./tmp -i ./docs -x 'npm run compile:img'"
   },
   "repository": "https://github.com/devwatchteam/node-blog.git",
   "reponame": "",
@@ -29,7 +29,8 @@
     "del": "^3.0.0",
     "del-cli": "^1.1.0",
     "highlight.js": "^9.12.0",
-    "markdown-it": "^8.3.1"
+    "markdown-it": "^8.3.1",
+    "nodemon": "^1.18.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.6",
