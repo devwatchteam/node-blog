@@ -1,0 +1,19 @@
+<!-- head -->
+<%- include partials/head.ejs %>
+<!-- /head -->
+
+<!-- body -->
+<main class="wrap wrap-main">
+  <%- include partials/header.ejs %>
+  <% if(typeof list !== 'undefined'){ %>
+    <%- include partials/list.ejs %>
+  <% } else{ %>
+  <section class="wrap wrap-body">
+    <h2>Welcome putannavich!</h2>
+    <p>Get started with blogging by adding a post in the post directory located at <code>./src/post</code>. Any markdown files found here will automatically be added to your new blog list. Not interested in a blog? That's cool. Create a ejs template in  your pages directory located at <code>./src/views/pages</code> in order to create new pages for your site!
+  </section>
+  <% } %>
+  <!-- footer -->
+  <%- include partials/footer.ejs %>
+  <!-- /footer -->
+<!-- /body -->

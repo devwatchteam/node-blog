@@ -1,0 +1,199 @@
+@import 'utils/base';
+@import 'components/header';
+@import 'components/codeHighlighter';
+
+:root {
+  font-size: 99%;
+  display: flex;
+}
+
+body {
+  background: url(http://david-conner.com/images/heroBg.jpg) repeat;
+  background-position: 50% 54%;
+
+  &::after {
+    background: rgba(255, 255, 255, 0.4);
+    content: '';
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+a {
+  color: $pink;
+}
+
+.accent {
+  color: $pink;
+  font-size: 60%;
+  padding: 0.5em;
+  text-transform: uppercase;
+}
+
+
+.wrap {
+  display: flex;
+  min-height: 100%;
+  margin: 0 auto;
+  max-width: rem(800);
+  padding: 0 1em;
+  // position: relative;
+  width: 100%;
+  z-index: 10;
+
+  &-main {
+    flex-direction: column;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 0;
+  }
+
+  &-head {
+    padding-left: 0;
+
+    @include bp(600) {
+      padding-left: 1em;
+    }
+
+    @include bp(990) {
+      max-width: 80vw;
+    }
+  }
+
+  &-body {
+    flex: 2;
+    flex-direction: column;
+    padding-bottom: 3em;
+  }
+
+  &-footer {
+    justify-content: space-between;
+    @include bp(990) {
+      max-width: 80vw;
+    }
+  }
+}
+
+.post {
+
+  &-list-item {
+    margin-bottom: 3rem;
+  }
+
+  &-link {
+    display: block;
+    overflow: hidden;
+  }
+
+  &-date {
+    color: $blue-new;
+    display: block;
+    margin-bottom: 0.25em;
+  }
+
+  &-header {
+    color: $gray;
+    margin-bottom: 0.25em;
+  }
+
+  &-description {
+    color: $gray;
+    margin-bottom: 1.85em;
+  }
+
+  &-more {
+    margin-left: 1em;
+  }
+
+  &-tags-list {
+    display: flex;
+  }
+
+  &-tags-list li {
+    display: flex;
+
+    & + li {
+      margin-left: 0.5em;
+    }
+  }
+
+  &-tags {
+    background: $white-dark;
+    border: rem(1) solid $gray-lightest;
+    border-radius: 0.15em;
+    // color: $gray;
+    display: block;
+    padding: 0.15em 1em;
+
+    &:hover {
+      background: $less-white;
+    }
+  }
+}
+
+//Pagination links
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  & li + li {
+    margin-left: 1em;
+  }
+
+  &-link_active {
+    border-bottom: rem(1) solid;
+  }
+}
+
+.site-footer {
+  background: $white-dark;
+  border-top: rem(1) solid $gray-lightest;
+  padding: 2em 0;
+  position: relative;
+  width: 100%;
+  z-index: 10;
+
+  &-widget {
+    flex-basis: calc(100%/3);
+  }
+}
+
+.widget {
+  &-social {
+    align-self: center;
+    flex-basis: auto;
+  }
+
+  &-social-link {
+    align-items: center;
+    display: flex;
+    margin-bottom: 0.75em;
+
+    & * + * {
+      line-height: 1;
+      margin-left: 0.25em;
+    }
+  }
+
+  &-biz {
+    &-header {
+      margin-bottom: 0.5em;
+    }
+
+    &-text {
+      margin-bottom: 0.15em;
+    }
+  }
+}
