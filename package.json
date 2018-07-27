@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "A Jekyll replacement",
   "scripts": {
-    "help": "nodemon -h",
     "clean": "del ./docs",
     "start": "npm run compile:build & npm-run-all --parallel watch:* & npm run start:dev",
     "start:dev": "babel-node ./server/server.js",
