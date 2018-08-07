@@ -9,11 +9,12 @@
   </head>
   <body>
 
-<!-- /head -->
+  <!-- /head -->
 
-<!-- body -->
-<main class="wrap wrap-main">
-  <header class='site-header'>
+  <!-- body -->
+
+  <main class="wrap wrap-main">
+    <header class='site-header'>
   <div class="wrap wrap-head">
     <h1 class="site-logo">
       <a class="site-logo-link" href="/">
@@ -81,134 +82,48 @@
   </div>
 </header>
 
-  
-    
+      <section class="wrap wrap-body">
 
-  <div class="wrap wrap-body">
-    <ul class="post-list">
-      
-        <li class="post-list-item">
-          <a class="post-link" href="/post/TestPost0.html">
+        <h1 class="static-header">
+          Deploying with Netlify
+        </h1>
+        <p>By
+          <a href="https://twitter.com/"@Dave_Conner"">
+            @Dave_Conner
+          </a> on
+          August 7, 2018
+        </p>
+        <p><img src="/static/img/netlify-logo.png" alt="Netlify"></p>
+<p>Modern front-end development covers a whole spectrum of disciplines and concerns. From styling layouts to creating servers and APIs to deploying applications and sites. All these task can fall under the FED umbrella. One of the hardest to become proficient in is dev ops and deployment. Usually, the set up and configuration for a deployment happens at the beginning of a project. Once in place it is rarely revisited until the next project comes along and you have to knock off the cobwebs in your brain to do it all again.</p>
+<p>Luckily, there has been advancements in these areas with services like Github pages, Let’s Encrypt and Travis CI. These companies have free tiers that offer developers an easy way to host passion projects and portfolios. It has never been easier to set up CDNs, SSL certs, and continuous integration. Even junior developers are able to easily utilize these services and get their content to the public.</p>
+<p>I am here to tell you it gets even easier. Netlify is an “all-in-one workflow that combines global deployment, continuous integration, and automatic HTTPS” right out of the box. For FREE! There is so much awesomeness offered in their free tier you will seriously wonder how they can possibly afford to do so!</p>
+<h2>Steps to deploy</h2>
+<p>The Netlify app has an amazing UX and allows you to deploy your site in three easy steps.</p>
+<h3>1 - Connecting your repository</h3>
+<p><img src="/static/img/connectGitProvider.png" alt="Connect Git provider"></p>
+<p>Github pages was a great step forward in providing an easy means of deploying your site or SPA. The obvious negative is that you must use Github as your distributed repository manager. Netlify allows you to authenticate and hook up repositories from not only Github but Gitlab and Bitbucket as well.</p>
+<hr>
+<h3>2 - Adding your build steps</h3>
+<p><img src="/static/img/pickRepo.png" alt="pick repository"></p>
+<p>With a set of three fields you can configure your build process. These fields allow you to set the branch that will trigger a build, set up any build commands, and choose a directory that you want to serve your site from. Additionally, you can set up environment variables needed during your build process by clicking &quot;Show advanced&quot; button.</p>
+<hr>
+<h3>3 - Deploy and Configure Site</h3>
+<p><img src="/static/img/deploy.png" alt="Deploy &amp; configure"></p>
+<p>Once the build scripts are in place and you have clicked the deploy button you are a few short moments away of having your site live. At this point you could sit back and enjoy just how easy that was. Or, you could enhance your site with some quick configurations!
+Netlify offers a very easy way to hook up custom URL and a one button click ssl cert add on that they will renew and re-upload for you! What?! All this, FOR FREE!</p>
+<hr>
+<h2>That’s not all!</h2>
+<p>That whole process of signing up, deploying, adding url and ssl cert legitimately took me five minutes as a first time user. This is amazing UX. Netlify is a tool that inspires me to create more side projects because it takes care of a huge section of concerns. And they didn't stop there! They also provide micro services with free tiers that scale with your needs. These services include an email server, A/B testing, and Auth. I host this blog on netlify and I suggest you check it out. <a href="https://www.netlify.com/">www.netlify.com/</a></p>
+<hr>
+<p><strong>resources</strong>:</p>
+<ul>
+<li><a href="https://www.netlify.com/">www.netlify.com/</a></li>
+</ul>
 
-            <date class="post-date">
-              March 8, 2017
-            </date>
-            <h2 class="post-header">
-              Test Post 3!!
-            </h2>
-            <p class="post-description">
-              Right when you were starting to feel good about your Webpack config file Webpack V2 was released and rained on your parade. Staying on the bleeding edge can get tiresome for as soon as you update Webpack and try to compile you get an error. The good news?
-            </p>
-          </a>
-          <ul class="post-tags-list">
-            
-              <li>
-                <a class="post-tags post-tags-javascript" href="
-                  /
-                    javascript">
-                      javascript
-                </a>
-              </li>
-              
-              <li>
-                <a class="post-tags post-tags-markdown" href="
-                  /
-                    markdown">
-                      markdown
-                </a>
-              </li>
-              
-          </ul>
+      </section>
 
-        </li>
-        
-        <li class="post-list-item">
-          <a class="post-link" href="/post/bootstr-app.html">
-
-            <date class="post-date">
-              Nov 22, 2016
-            </date>
-            <h2 class="post-header">
-              BootstrApp!
-            </h2>
-            <p class="post-description">
-              BootstrApp is a collection of best practices and helper functions that will help make your mobile application feel native and save you time in development.
-            </p>
-          </a>
-          <ul class="post-tags-list">
-            
-              <li>
-                <a class="post-tags post-tags-pwa" href="
-                  /
-                    pwa">
-                      pwa
-                </a>
-              </li>
-              
-              <li>
-                <a class="post-tags post-tags-css" href="
-                  /
-                    css">
-                      css
-                </a>
-              </li>
-              
-              <li>
-                <a class="post-tags post-tags-sass" href="
-                  /
-                    sass">
-                      sass
-                </a>
-              </li>
-              
-          </ul>
-
-        </li>
-        
-    </ul>
-    
-
-      <ul class="pagination">
-        
-          <li>
-            <a class="pagination-link" href=/index-1.html>&#60;</a>
-          </li>
-
-          
-
-              
-                <li>
-                  
-                            <a class="pagination-link" href=/index.html>
-                              
-                                    1
-                                </a>
-                </li>
-                
-                <li>
-                  
-                                <a class="pagination-link" href=/index-1.html>
-                                  
-                                    2
-                                </a>
-                </li>
-                
-                <li>
-                  
-                        <a class="pagination-link pagination-link_active" href=/index-2.html>
-                          
-                                    3
-                                </a>
-                </li>
-                
-
-                  
-      </ul>
-      
-  </div>
-  
-  <!-- footer -->
-        <!-- <script src="//static/js/index_bundled.js"</script> -->
+      <!-- footer -->
+            <!-- <script src="//static/js/index_bundled.js"</script> -->
       <footer class="site-footer">
         <div class="wrap wrap-footer">
           <div class="site-footer-widget widget-biz">
@@ -246,5 +161,6 @@
   </body>
 </html>
 
-  <!-- /footer -->
-<!-- /body -->
+        <!-- /footer -->
+
+        <!-- /body -->
